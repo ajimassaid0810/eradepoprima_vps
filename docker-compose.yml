@@ -219,21 +219,21 @@ services:
   mailserver:
     image: ghcr.io/docker-mailserver/docker-mailserver:latest
     container_name: mailserver
-    hostname: ${MAIL_HOSTNAME:-mail.eradepoprima.com}
+    hostname: mail
     domainname: ${DOMAIN_NAME:-eradepoprima.com}
     restart: unless-stopped
     environment:
-      - OVERRIDE_HOSTNAME=${MAIL_HOSTNAME:-mail.eradepoprima.com}
+      - OVERRIDE_HOSTNAME=mail.${DOMAIN_NAME:-eradepoprima.com}
       - LOG_LEVEL=info
       - ONE_DIR=1
       - ENABLE_RSPAMD=${ENABLE_RSPAMD:-1}
-      - ENABLE_CLAMAV=${ENABLE_CLAMAV:-1}
+      - ENABLE_CLAMAV=${ENABLE_CLAMAV:-0}
       - ENABLE_FAIL2BAN=${ENABLE_FAIL2BAN:-1}
       - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
       - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
       - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@eradepoprima.com}
       - SSL_TYPE=self-signed
-      - SSL_DOMAIN=${MAIL_HOSTNAME:-mail.eradepoprima.com}
+      - SSL_DOMAIN=mail.${DOMAIN_NAME:-eradepoprima.com}
       - RSPAMD_GREYLISTING=1
       - RSPAMD_LEARN=1
     ports:

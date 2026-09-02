@@ -7,12 +7,12 @@ services:
   mailserver:
     image: ghcr.io/docker-mailserver/docker-mailserver:latest
     container_name: mailserver
-    hostname: ${MAIL_HOSTNAME:-mail.example.com}
-    domainname: ${DOMAIN_NAME:-example.com}
+    hostname: mail
+    domainname: ${DOMAIN_NAME:-eradepoprima.com}
     restart: unless-stopped
     env_file: ../.env
     environment:
-      - OVERRIDE_HOSTNAME=${MAIL_HOSTNAME:-mail.example.com}
+      - OVERRIDE_HOSTNAME=mail.${DOMAIN_NAME:-eradepoprima.com}
       - LOG_LEVEL=info
       - ONE_DIR=1
       # Keamanan & Filter Email
