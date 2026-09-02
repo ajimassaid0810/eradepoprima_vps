@@ -56,6 +56,18 @@ services:
           memory: 256M
 
   # ============================================================================
+  # 2. CERTS DUMPER (AUTO-EXTRACT LET'S ENCRYPT FOR MAILSERVER)
+  # ============================================================================
+  certs_dumper:
+    image: ldez/traefik-certs-dumper:v2.8.3
+    container_name: certs-dumper
+    restart: unless-stopped
+    command: file --watch --version v3 --source /acme/acme.json --dest /output
+    volumes:
+      - ./proxy/acme:/acme:ro
+      - ./mail/ssl-certs:/output
+
+  # ============================================================================
   # 3. COMPANY PROFILE (NGINX ALPINE NON-ROOT)
   # ============================================================================
   company_profile:
@@ -83,6 +95,11 @@ services:
       - "traefik.http.routers.company-https.entrypoints=websecure"
       - "traefik.http.routers.company-https.tls.certresolver=letsencrypt"
       - "traefik.http.routers.company-https.service=company-svc"
+      # Router HTTPS untuk SSL Mail (Memicu pembuatan sertifikat Let's Encrypt resmi untuk mail.eradepoprima.com)
+      - "traefik.http.routers.mail-https.rule=Host(`mail.${DOMAIN_NAME:-eradepoprima.com}`)"
+      - "traefik.http.routers.mail-https.entrypoints=websecure"
+      - "traefik.http.routers.mail-https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.mail-https.service=company-svc"
       - "traefik.http.services.company-svc.loadbalancer.server.port=80"
 
   # ============================================================================
@@ -208,8 +225,9 @@ services:
       - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
       - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
       - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@eradepoprima.com}
-      - SSL_TYPE=self-signed
-      - SSL_DOMAIN=mail.${DOMAIN_NAME:-eradepoprima.com}
+      - SSL_TYPE=manual
+      - SSL_CERT_PATH=/var/mail-ssl/certs/mail.${DOMAIN_NAME:-eradepoprima.com}.crt
+      - SSL_KEY_PATH=/var/mail-ssl/private/mail.${DOMAIN_NAME:-eradepoprima.com}.key
       - RSPAMD_GREYLISTING=1
       - RSPAMD_LEARN=1
     ports:
@@ -223,6 +241,7 @@ services:
       - ./mail/mail-state:/var/mail-state
       - ./mail/mail-logs:/var/log/mail
       - ./mail/config:/tmp/docker-mailserver
+      - ./mail/ssl-certs:/var/mail-ssl:ro
       - /etc/localtime:/etc/localtime:ro
     cap_add:
       - NET_ADMIN
