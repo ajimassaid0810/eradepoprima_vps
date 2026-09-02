@@ -1,7 +1,7 @@
 # ==============================================================================
 # PT ERA DEPO PRIMA - MASTER DOCKER COMPOSE
 # ==============================================================================
-# Disesuaikan untuk VPS 1-vCPU / Multi-Core (CPU otomatis dibagi dinamis, Memory dibatasi aman)
+# Mendukung akses langsung via IP & Domain (HTTP Port 80 & HTTPS Port 443)
 
 services:
   # ============================================================================
@@ -14,7 +14,6 @@ services:
     read_only: true
     tmpfs:
       - /run
-      
     environment:
       - LOG_LEVEL=info
       - CONTAINERS=1
@@ -60,18 +59,22 @@ services:
       - --global.sendanonymoususage=false
       - --log.level=INFO
       - --accesslog=true
+
+      # EntryPoints (Port 80 HTTP dan Port 443 HTTPS)
       - --entrypoints.web.address=:80
-      - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
-      - --entrypoints.websecure.http.tls=true
-      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+
+      # Docker Provider via Socket Proxy
       - --providers.docker=true
       - --providers.docker.endpoint=tcp://socket-proxy:2375
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=proxy_net
+
+      # Dynamic File Provider
       - --providers.file.directory=/etc/traefik/dynamic
       - --providers.file.watch=true
+
+      # Let's Encrypt Certificate Resolver
       - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@eradepoprima.com}
       - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
       - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
@@ -110,12 +113,17 @@ services:
           memory: 256M
     labels:
       - "traefik.enable=true"
-      # Routing Domain Utama, Subdomain WWW, dan Akses Langsung
-      - "traefik.http.routers.company.rule=Host(`${DOMAIN_NAME:-eradepoprima.com}`) || Host(`${WEB_SUBDOMAIN:-www}.${DOMAIN_NAME:-eradepoprima.com}`) || PathPrefix(`/`)"
-      - "traefik.http.routers.company.entrypoints=websecure,web"
-      - "traefik.http.routers.company.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.company.middlewares=security-headers@file,compression@file"
-      - "traefik.http.services.company.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy_net"
+      # Router HTTP (Bisa langsung dibuka lewat IP VPS maupun Domain)
+      - "traefik.http.routers.company_http.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.company_http.entrypoints=web"
+      - "traefik.http.routers.company_http.service=company_service"
+      # Router HTTPS (Aktif otomatis dengan SSL Let's Encrypt saat domain dipasang)
+      - "traefik.http.routers.company_https.rule=Host(`${DOMAIN_NAME:-eradepoprima.com}`) || Host(`${WEB_SUBDOMAIN:-www}.${DOMAIN_NAME:-eradepoprima.com}`)"
+      - "traefik.http.routers.company_https.entrypoints=websecure"
+      - "traefik.http.routers.company_https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company_https.service=company_service"
+      - "traefik.http.services.company_service.loadbalancer.server.port=8080"
 
   # ============================================================================
   # 4. API SERVICE (NODE.JS PRODUCTION BACKEND)
@@ -154,12 +162,19 @@ services:
           memory: 512M
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`${API_SUBDOMAIN:-api}.${DOMAIN_NAME:-eradepoprima.com}`) || PathPrefix(`/api`)"
-      - "traefik.http.routers.api.priority=100"
-      - "traefik.http.routers.api.entrypoints=websecure,web"
-      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.api.middlewares=security-headers@file,rate-limit-api@file,compression@file"
-      - "traefik.http.services.api.loadbalancer.server.port=3000"
+      - "traefik.docker.network=proxy_net"
+      # Router HTTP API
+      - "traefik.http.routers.api_http.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.api_http.priority=100"
+      - "traefik.http.routers.api_http.entrypoints=web"
+      - "traefik.http.routers.api_http.service=api_service"
+      # Router HTTPS API
+      - "traefik.http.routers.api_https.rule=Host(`${API_SUBDOMAIN:-api}.${DOMAIN_NAME:-eradepoprima.com}`) || (Host(`${DOMAIN_NAME:-eradepoprima.com}`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.api_https.priority=100"
+      - "traefik.http.routers.api_https.entrypoints=websecure"
+      - "traefik.http.routers.api_https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.api_https.service=api_service"
+      - "traefik.http.services.api_service.loadbalancer.server.port=3000"
 
   # ============================================================================
   # 5. POSTGRESQL 16 (CENTRAL ISOLATED DATABASE)
@@ -285,12 +300,18 @@ services:
           memory: 256M
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.webmail.rule=Host(`${WEBMAIL_SUBDOMAIN:-webmail}.${DOMAIN_NAME:-eradepoprima.com}`) || PathPrefix(`/webmail`)"
-      - "traefik.http.routers.webmail.priority=90"
-      - "traefik.http.routers.webmail.entrypoints=websecure,web"
-      - "traefik.http.routers.webmail.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.webmail.middlewares=security-headers@file,compression@file"
-      - "traefik.http.services.webmail.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy_net"
+      # Router HTTP Webmail
+      - "traefik.http.routers.webmail_http.rule=PathPrefix(`/webmail`)"
+      - "traefik.http.routers.webmail_http.priority=90"
+      - "traefik.http.routers.webmail_http.entrypoints=web"
+      - "traefik.http.routers.webmail_http.service=webmail_service"
+      # Router HTTPS Webmail
+      - "traefik.http.routers.webmail_https.rule=Host(`${WEBMAIL_SUBDOMAIN:-webmail}.${DOMAIN_NAME:-eradepoprima.com}`)"
+      - "traefik.http.routers.webmail_https.entrypoints=websecure"
+      - "traefik.http.routers.webmail_https.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.webmail_https.service=webmail_service"
+      - "traefik.http.services.webmail_service.loadbalancer.server.port=80"
 
 volumes:
   postgres_data:
