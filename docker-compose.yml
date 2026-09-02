@@ -8,7 +8,7 @@ services:
   # 1. TRAEFIK V3 REVERSE PROXY & AUTOMATED SSL (LET'S ENCRYPT)
   # ============================================================================
   traefik:
-    image: traefik:v3.1
+    image: traefik:latest
     container_name: reverse-proxy
     restart: unless-stopped
     security_opt:
