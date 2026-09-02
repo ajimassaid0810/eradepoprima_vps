@@ -22,8 +22,8 @@ services:
       - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
       - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
       - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@example.com}
-      # Konfigurasi TLS/SSL (Menggunakan Certbot / Traefik atau self-signed fallback)
-      - SSL_TYPE=letsencrypt
+      # Konfigurasi TLS/SSL (Self-signed bawaan aman saat inisialisasi)
+      - SSL_TYPE=self-signed
       - SSL_DOMAIN=${MAIL_HOSTNAME:-mail.example.com}
       # Spam thresholds
       - RSPAMD_GREYLISTING=1

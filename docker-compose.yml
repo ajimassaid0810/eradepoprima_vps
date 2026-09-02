@@ -232,7 +232,7 @@ services:
       - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
       - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
       - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@eradepoprima.com}
-      - SSL_TYPE=letsencrypt
+      - SSL_TYPE=self-signed
       - SSL_DOMAIN=${MAIL_HOSTNAME:-mail.eradepoprima.com}
       - RSPAMD_GREYLISTING=1
       - RSPAMD_LEARN=1
