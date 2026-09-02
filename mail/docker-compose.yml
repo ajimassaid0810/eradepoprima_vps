@@ -47,7 +47,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.5'
           memory: 1536M
 
   # ============================================================================
@@ -75,7 +74,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
           memory: 256M
     labels:
       - "traefik.enable=true"

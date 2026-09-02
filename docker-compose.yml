@@ -1,9 +1,7 @@
 # ==============================================================================
 # PT ERA DEPO PRIMA - MASTER DOCKER COMPOSE
 # ==============================================================================
-# File ini menggabungkan seluruh arsitektur (Reverse Proxy SSL, Web, API,
-# Database PostgreSQL, Redis, Mailserver Korporat, & Webmail) dalam 1 stack
-# yang 100% kompatibel dengan SEMUA Docker Manager (Hostinger, Portainer, Dokploy, dll.)
+# Disesuaikan untuk VPS 1-vCPU / Multi-Core (CPU otomatis dibagi dinamis, Memory dibatasi aman)
 
 services:
   # ============================================================================
@@ -43,7 +41,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
           memory: 64M
 
   # ============================================================================
@@ -91,7 +88,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.75'
           memory: 256M
 
   # ============================================================================
@@ -110,7 +106,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
           memory: 256M
     labels:
       - "traefik.enable=true"
@@ -154,7 +149,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
           memory: 512M
     labels:
       - "traefik.enable=true"
@@ -191,7 +185,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
           memory: 512M
 
   # ============================================================================
@@ -218,7 +211,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
           memory: 256M
 
   # ============================================================================
@@ -263,7 +255,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.5'
           memory: 1536M
 
   # ============================================================================
@@ -289,7 +280,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
           memory: 256M
     labels:
       - "traefik.enable=true"
