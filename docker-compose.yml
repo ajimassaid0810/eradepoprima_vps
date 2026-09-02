@@ -1,0 +1,10 @@
+# ==============================================================================
+# UNIFIED ROOT DOCKER COMPOSE (KOMPATIBEL DENGAN SEMUA DOCKER MANAGER & CLI)
+# ==============================================================================
+# File ini menggabungkan semua modul (Proxy, Apps, dan Mail) sehingga Anda bisa
+# langsung menjalankan 'docker compose up -d' di root atau dihubungkan ke GUI Manager.
+
+include:
+  - proxy/docker-compose.yml
+  - apps/docker-compose.yml
+  - mail/docker-compose.yml
