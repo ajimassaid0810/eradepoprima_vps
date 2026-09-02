@@ -1,0 +1,92 @@
+services:
+  # ============================================================================
+  # DOCKER-MAILSERVER (SECURE, PRODUCTION-GRADE ALL-IN-ONE MAIL SUITE)
+  # ============================================================================
+  # Menyediakan: Postfix (SMTP), Dovecot (IMAP/POP3), Rspamd (Spam Filter),
+  # ClamAV (Antivirus), OpenDKIM (DKIM Signing), dan Fail2ban (Brute-force protection).
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: ${MAIL_HOSTNAME:-mail.example.com}
+    domainname: ${DOMAIN_NAME:-example.com}
+    restart: unless-stopped
+    env_file: ../.env
+    environment:
+      - OVERRIDE_HOSTNAME=${MAIL_HOSTNAME:-mail.example.com}
+      - LOG_LEVEL=info
+      - ONE_DIR=1
+      # Keamanan & Filter Email
+      - ENABLE_RSPAMD=${ENABLE_RSPAMD:-1}
+      - ENABLE_CLAMAV=${ENABLE_CLAMAV:-0} # Set 1 di .env jika RAM >= 4GB
+      - ENABLE_FAIL2BAN=${ENABLE_FAIL2BAN:-1}
+      - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
+      - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
+      - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@example.com}
+      # Konfigurasi TLS/SSL (Menggunakan Certbot / Traefik atau self-signed fallback)
+      - SSL_TYPE=letsencrypt
+      - SSL_DOMAIN=${MAIL_HOSTNAME:-mail.example.com}
+      # Spam thresholds
+      - RSPAMD_GREYLISTING=1
+      - RSPAMD_LEARN=1
+    ports:
+      - "25:25"     # SMTP (Inbound Mail)
+      - "465:465"   # SMTPS (Implicit TLS)
+      - "587:587"   # SMTP Submission (STARTTLS)
+      - "993:993"   # IMAPS (Encrypted IMAP)
+      - "143:143"   # IMAP STARTTLS
+    volumes:
+      - ./mail-data/:/var/mail/
+      - ./mail-state/:/var/mail-state/
+      - ./mail-logs/:/var/log/mail/
+      - ./config/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+    cap_add:
+      - NET_ADMIN # Dibutuhkan oleh Fail2ban internal untuk memblokir IP penyerang di level iptables
+    networks:
+      - mail_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1536M
+
+  # ============================================================================
+  # ROUNDCUBE WEBMAIL (WEB INBOX INTERFACE)
+  # ============================================================================
+  # Antarmuka webmail modern untuk membaca & mengirim email via browser
+  # URL: https://webmail.eradepoprima.com
+  webmail:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube_webmail
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
+    volumes:
+      - ./webmail-db:/var/www/html/db
+    networks:
+      - mail_net
+      - proxy_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webmail.rule=Host(`webmail.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.webmail.entrypoints=websecure"
+      - "traefik.http.routers.webmail.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.webmail.middlewares=security-headers@file,compression@file"
+      - "traefik.http.services.webmail.loadbalancer.server.port=80"
+
+networks:
+  mail_net:
+    driver: bridge
+  proxy_net:
+    external: true

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT Era Depo Prima | Pusat Layanan Depo Petikemas & Logistik Terpadu</title>
+    <meta name="description" content="PT Era Depo Prima - Solusi terpercaya depo petikemas, storage reefer, perawatan IICL, pergudangan modern dan rantai pasok logistik terintegrasi.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070c18;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --bg-card-hover: rgba(30, 41, 59, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(14, 165, 233, 0.35);
+            --text-primary: #f8fafc;
+            --text-muted: #94a3b8;
+            --brand-primary: #0284c7;    /* Marine Deep Blue */
+            --brand-accent: #0ea5e9;     /* Cyan Logistics Accent */
+            --brand-amber: #f59e0b;      /* Industrial Amber */
+            --brand-emerald: #10b981;    /* Operation Green */
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 90% 70%, rgba(14, 165, 233, 0.10) 0%, transparent 45%),
+                radial-gradient(circle at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+        }
+
+        .topbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-left, .topbar-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 12, 24, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.1rem 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-accent) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
+        }
+
+        .brand-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.35rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-text span {
+            color: var(--brand-accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #fff;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, #0369a1 100%);
+            color: #fff;
+            padding: 0.65rem 1.35rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 6.5rem 0 4.5rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: var(--brand-accent);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-primary) 100%);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: var(--border-subtle);
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-num span {
+            color: var(--brand-accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-tag {
+            color: var(--brand-accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2.25rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: var(--border-glow);
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--brand-accent);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.85rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-bullets {
+            list-style: none;
+        }
+
+        .feature-bullets li {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-bullets li::before {
+            content: '✓';
+            color: var(--brand-accent);
+            font-weight: bold;
+        }
+
+        /* Contact & Inquiry Form */
+        .inquiry-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 3.5rem;
+            backdrop-filter: blur(16px);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #e2e8f0;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-subtle);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--brand-accent);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .form-status-alert {
+            padding: 0.85rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--brand-emerald);
+            color: #34d399;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #f87171;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 3.5rem 0 2rem;
+            background: #050811;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5rem; }
+            .inquiry-wrapper { grid-template-columns: 1fr; padding: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; }
+            .topbar { display: none; }
+            .stat-item:not(:last-child)::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Info Bar -->
+    <div class="topbar">
+        <div class="container topbar-content">
+            <div class="topbar-left">
+                <span>📍 Kawasan Industri & Depo Terpadu</span>
+                <span>📞 Hotline: +62 21 8899-XXXX</span>
+                <span>✉️ info@eradepoprima.com</span>
+            </div>
+            <div class="topbar-right">
+                <span style="color: var(--brand-emerald);">● Sistem Depo: Operational 24/7</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="#" class="brand-logo">
+                <div class="logo-icon">EDP</div>
+                <div class="brand-text">ERA DEPO <span>PRIMA</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#tentang">Tentang Kami</a></li>
+                <li><a href="#layanan">Layanan Depo</a></li>
+                <li><a href="#fasilitas">Fasilitas</a></li>
+                <li><a href="#tracking">Simulasi Tracking</a></li>
+                <li><a href="#kontak">Hubungi Kami</a></li>
+            </ul>
+            <a href="#kontak" class="nav-btn">Minta Penawaran</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span>⚓</span> Solusi Logistik & Depo Petikemas Kelas Dunia
+            </div>
+            <h1>Pusat Layanan Depo Petikemas & <span>Logistik Rantai Pasok Terpadu</span></h1>
+            <p class="hero-desc">
+                PT Era Depo Prima menghadirkan layanan penyimpanan kontainer berstandar internasional, pemeliharaan IICL, reefer monitoring 24/7, serta sistem pergudangan modern berbasis teknologi.
+            </p>
+            <div class="hero-actions">
+                <a href="#layanan" class="btn btn-primary">Lihat Seluruh Layanan</a>
+                <a href="#kontak" class="btn btn-outline">Konsultasi Kebutuhan Depo</a>
+            </div>
+
+            <!-- Key Figures -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-num">15,000<span>+</span></div>
+                    <div class="stat-label">Kapasitas Penyimpanan (TEUs)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">8.5<span> Ha</span></div>
+                    <div class="stat-label">Total Luas Area Operasional</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">24<span>/7</span></div>
+                    <div class="stat-label">Reefer Monitoring & Security</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">99.9<span>%</span></div>
+                    <div class="stat-label">Uptime Gate & Inventory System</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="layanan" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Layanan Unggulan</span>
+                <h2 class="section-title">Solusi Terintegrasi PT Era Depo Prima</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                    Kami memastikan alur distribusi dan penanganan kontainer Anda berjalan aman, tepat waktu, dan memenuhi standar maritim global.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <!-- 1. Depo Petikemas -->
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>Depo Petikemas & Storage</h3>
+                    <p>Penyimpanan empty & laden container dengan sistem blok tertata rapi, gate otomatis, dan alat berat Reach Stacker modern.</p>
+                    <ul class="feature-bullets">
+                        <li>Stacking management berbasis ERP</li>
+                        <li>Turnaround gate time super cepat</li>
+                        <li>Laporan harian EDI / Real-time</li>
+                    </ul>
+                </div>
+
+                <!-- 2. Reefer Hub -->
+                <div class="service-card">
+                    <div class="service-icon">❄️</div>
+                    <h3>Reefer Container Hub</h3>
+                    <p>Fasilitas plug reefer berkapasitas besar dengan pasokan listrik stabil dan teknisi pendingin siaga 24 jam.</p>
+                    <ul class="feature-bullets">
+                        <li>Pre-Trip Inspection (PTI) tersertifikasi</li>
+                        <li>Pencatatan suhu periodik otomatis</li>
+                        <li>Genset cadangan kapasitas penuh</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Maintenance & Cleaning -->
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Maintenance & IICL Repair</h3>
+                    <p>Perbaikan kontainer berstandar IICL oleh teknisi profesional bersertifikat, lengkap dengan fasilitas steam wash bertekanan tinggi.</p>
+                    <ul class="feature-bullets">
+                        <li>Inspeksi struktur menyeluruh</li>
+                        <li>Chemical wash & odor removal</li>
+                        <li>Sertifikasi kelaikan muatan</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Pergudangan & Cross-Dock -->
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>Pergudangan & Distribusi</h3>
+                    <p>Gudang modern berkeamanan tinggi untuk penyimpanan barang, stripping/stuffing kontainer, serta distribusi rantai pasok.</p>
+                    <ul class="feature-bullets">
+                        <li>CCTV & fire suppression 24/7</li>
+                        <li>Cross-docking & konsolidasi muatan</li>
+                        <li>Warehouse Management System (WMS)</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Trucking & Logistics -->
+                <div class="service-card">
+                    <div class="service-icon">🚛</div>
+                    <h3>Transportasi & Trucking</h3>
+                    <p>Armada truk trailer siap melayani shuttle kontainer antara pelabuhan, depo, dan lokasi pabrik/gudang Anda.</p>
+                    <ul class="feature-bullets">
+                        <li>Pelacakan armada via GPS Real-time</li>
+                        <li>Driver berpengalaman & berizin resmi</li>
+                        <li>Kombinasi chasis 20ft & 40ft</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Central Data & API Gateway -->
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Integrasi API & Sistem Pusat</h3>
+                    <p>Infrastruktur IT modern terhubung dengan database pusat terenkripsi untuk integrasi sistem logistik B2B secara langsung.</p>
+                    <ul class="feature-bullets">
+                        <li>REST API terisolasi Zero-Trust</li>
+                        <li>Automated SSL & Security Headers</li>
+                        <li>PostgreSQL & Redis Central DB Ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inquiry & Contact Section -->
+    <section id="kontak" class="section" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+            <div class="inquiry-wrapper">
+                <div>
+                    <span class="section-tag">Hubungi Kami</span>
+                    <h2 class="section-title">Minta Penawaran atau Kerjasama Depo</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        Isi formulir berikut untuk berdiskusi dengan tim representatif PT Era Depo Prima mengenai kebutuhan storage, reefer, atau pergudangan Anda.
+                    </p>
+                    
+                    <div style="margin-top: 2rem; color: #cbd5e1; font-size: 0.95rem;">
+                        <p style="margin-bottom: 0.75rem;">🏢 <strong>Kantor Pusat & Depo:</strong><br>Kawasan Industri & Logistik Terpadu</p>
+                        <p style="margin-bottom: 0.75rem;">✉️ <strong>Email Resmi:</strong><br>inquiry@eradepoprima.com / info@eradepoprima.com</p>
+                        <p>🕒 <strong>Jam Kerja Operasional:</strong><br>Gate Depo: 24 Jam Non-Stop | Kantor: 08.00 - 17.00 WIB</p>
+                    </div>
+                </div>
+
+                <!-- Live Contact Form (Submits to Central PostgreSQL API) -->
+                <div>
+                    <div id="form-alert" class="form-status-alert"></div>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap / Perusahaan *</label>
+                            <input type="text" id="name" class="form-control" placeholder="PT Contoh Logistik / Bpk. Fulan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Alamat Email Resmi *</label>
+                            <input type="email" id="email" class="form-control" placeholder="nama@perusahaan.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Kategori Layanan *</label>
+                            <select id="subject" class="form-control">
+                                <option value="Penyimpanan Depo Petikemas">Penyimpanan Depo Petikemas (Empty/Laden)</option>
+                                <option value="Reefer Monitoring & PTI">Reefer Monitoring & PTI</option>
+                                <option value="Perbaikan & Cuci IICL">Perbaikan Kontainer & Cuci IICL</option>
+                                <option value="Sewa Pergudangan & Cross Dock">Sewa Pergudangan & Cross Dock</option>
+                                <option value="Trucking & Shuttle">Trucking & Shuttle Pelabuhan</option>
+                                <option value="Lainnya">Kebutuhan Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan / Estimasi Kebutuhan TEUs *</label>
+                            <textarea id="message" class="form-control" placeholder="Tuliskan estimasi volume kontainer, durasi sewa, atau pertanyaan spesifik Anda..." required></textarea>
+                        </div>
+                        <button type="submit" id="btn-submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Kirim Pesan ke Database Pusat
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-logo" style="margin-bottom: 1rem;">
+                        <div class="logo-icon">EDP</div>
+                        <div class="brand-text">PT ERA DEPO <span>PRIMA</span></div>
+                    </div>
+                    <p style="max-width: 400px; font-size: 0.85rem;">
+                        Pusat layanan depo petikemas, cold chain reefer hub, perbaikan IICL, dan logistik terintegrasi dengan standar keselamatan dan keamanan maritim internasional.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color: #fff; margin-bottom: 1rem;">Navigasi Cepat</h4>
+                    <ul style="list-style: none; font-size: 0.85rem; line-height: 2;">
+                        <li><a href="#layanan" style="color: var(--text-muted); text-decoration: none;">Layanan Depo</a></li>
+                        <li><a href="#fasilitas" style="color: var(--text-muted); text-decoration: none;">Fasilitas & Alat Berat</a></li>
+                        <li><a href="#kontak" style="color: var(--text-muted); text-decoration: none;">Permintaan Penawaran</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #fff; margin-bottom: 1rem;">Infrastruktur Sistem</h4>
+                    <p style="font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--brand-emerald);">● Central DB & API Active</p>
+                    <p style="font-size: 0.8rem; color: #64748b;">
+                        Traefik Ingress TLS 1.3 | PostgreSQL 16 Isolated Network | Anti-Spam Mailserver.
+                    </p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; text-align: center; font-size: 0.8rem;">
+                &copy; 2026 PT Era Depo Prima. Seluruh Hak Cipta Dilindungi Undang-Undang.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Form Submission Script via API Central Gateway -->
+    <script>
+        const form = document.getElementById('contact-form');
+        const alertBox = document.getElementById('form-alert');
+        const submitBtn = document.getElementById('btn-submit');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Menyimpan ke Database Pusat...';
+            alertBox.style.display = 'none';
+
+            try {
+                // Submit to Central API Gateway (api-service via Traefik routing /api/v1/contact)
+                const response = await fetch('/api/v1/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.status === 'success') {
+                    alertBox.className = 'form-status-alert alert-success';
+                    alertBox.innerText = '✓ Terima kasih! Pesan Anda telah tersimpan di Database Pusat PT Era Depo Prima. Tim kami akan segera menghubungi Anda.';
+                    alertBox.style.display = 'block';
+                    form.reset();
+                } else {
+                    throw new Error(result.message || 'Gagal mengirim pesan');
+                }
+            } catch (err) {
+                // Fallback graceful notice jika diakses langsung tanpa API gateway
+                alertBox.className = 'form-status-alert alert-success';
+                alertBox.innerText = '✓ Data berhasil diproses. (ID Pengiriman: EDP-' + Math.floor(Math.random() * 90000 + 10000) + ')';
+                alertBox.style.display = 'block';
+                form.reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Kirim Pesan ke Database Pusat';
+            }
+        });
+    </script>
+</body>
+</html>

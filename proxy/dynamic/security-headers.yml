@@ -1,0 +1,55 @@
+http:
+  middlewares:
+    # ==========================================================================
+    # 1. STRICT SECURITY HEADERS (OWASP RECOMMENDED)
+    # ==========================================================================
+    security-headers:
+      headers:
+        # HSTS (HTTP Strict Transport Security) - Force HTTPS for 1 year + subdomains
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        stsPreload: true
+        forceSTSHeader: true
+
+        # Clickjacking Protection
+        frameDeny: true
+        customFrameOptionsValue: "SAMEORIGIN"
+
+        # MIME-Type Sniffing Protection
+        contentTypeNosniff: true
+
+        # XSS Protection
+        browserXssFilter: true
+
+        # Referrer Policy
+        referrerPolicy: "strict-origin-when-cross-origin"
+
+        # Permissions Policy (Disable unnecessary browser features)
+        permissionsPolicy: "camera=(), microphone=(), geolocation=(), payment=()"
+
+        # Custom Security Response Headers
+        customResponseHeaders:
+          X-Robots-Tag: "index, follow"
+          Server: "" # Mask web server signature
+
+    # ==========================================================================
+    # 2. RATE LIMITING (DOS & BRUTE-FORCE MITIGATION)
+    # ==========================================================================
+    rate-limit-general:
+      rateLimit:
+        average: 100
+        burst: 50
+        period: 1s
+
+    rate-limit-api:
+      rateLimit:
+        average: 30
+        burst: 20
+        period: 1s
+
+    # ==========================================================================
+    # 3. COMPRESSION
+    # ==========================================================================
+    compression:
+      compress:
+        minResponseBodyBytes: 1024

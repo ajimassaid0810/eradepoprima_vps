@@ -1,0 +1,142 @@
+services:
+  # ============================================================================
+  # 1. COMPANY PROFILE (STATIC / SPA / WEB FRONTEND)
+  # ============================================================================
+  company_profile:
+    build:
+      context: ./company-profile
+      dockerfile: Dockerfile
+    container_name: company-profile
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+    labels:
+      - "traefik.enable=true"
+      # Routing Domain Utama & Subdomain WWW
+      - "traefik.http.routers.company.rule=Host(`${DOMAIN_NAME}`) || Host(`${WEB_SUBDOMAIN}.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.company.entrypoints=websecure"
+      - "traefik.http.routers.company.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company.middlewares=security-headers@file,compression@file"
+      - "traefik.http.services.company.loadbalancer.server.port=8080"
+
+  # ============================================================================
+  # 2. API SERVICE (NODE.JS / MICROSERVICE BACKEND)
+  # ============================================================================
+  api_service:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: api-service
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - DB_HOST=postgres
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-app_production}
+      - DB_USER=${DB_USER:-app_dbuser}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - proxy_net
+      - backend_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      # Routing Subdomain API (api.domain.com) dan Path /api pada domain utama
+      - "traefik.http.routers.api.rule=Host(`${API_SUBDOMAIN}.${DOMAIN_NAME}`) || (Host(`${DOMAIN_NAME}`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.api.priority=100"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.api.middlewares=security-headers@file,rate-limit-api@file,compression@file"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
+
+  # ============================================================================
+  # 3. DATABASE (POSTGRESQL - 100% INTERNAL NETWORK ISOLATION)
+  # ============================================================================
+  # TIDAK mengekspos port ke Host OS (0.0.0.0), hanya bisa diakses dalam backend_net
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      POSTGRES_DB: ${DB_NAME:-app_production}
+      POSTGRES_USER: ${DB_USER:-app_dbuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-app_dbuser} -d ${DB_NAME:-app_production}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+
+  # ============================================================================
+  # 4. REDIS CACHE (100% INTERNAL NETWORK ISOLATION)
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: ["sh", "-c", "redis-server --requirepass \"$REDIS_PASSWORD\" --save 60 1 --loglevel warning"]
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$REDIS_PASSWORD\" ping | grep PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  proxy_net:
+    external: true
+  backend_net:
+    internal: true # Murni internal, tidak ada route ke internet publik

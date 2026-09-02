@@ -1,0 +1,109 @@
+services:
+  # ============================================================================
+  # 1. DOCKER SOCKET PROXY (CRITICAL SECURITY COMPONENT)
+  # ============================================================================
+  # Mencegah Traefik mengakses docker.sock secara langsung sebagai root.
+  # Socket proxy hanya mengizinkan operasi READ-ONLY yang dibutuhkan Traefik.
+  # Operasi POST, DELETE, EXEC, dan modifikasi container DIBLOKIR TOTAL.
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: socket-proxy
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - LOG_LEVEL=info
+      - CONTAINERS=1
+      - SERVICES=1
+      - TASKS=1
+      - NETWORKS=1
+      - NODES=1
+      - INFO=1
+      - VERSION=1
+      # Blokir semua operasi berbahaya
+      - POST=0
+      - DELETE=0
+      - PUT=0
+      - EXEC=0
+      - SECRETS=0
+      - CONFIGS=0
+      - VOLUMES=0
+      - SWARM=0
+      - PLUGINS=0
+      - BUILD=0
+      - SYSTEM=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 64M
+
+  # ============================================================================
+  # 2. TRAEFIK V3 REVERSE PROXY & AUTOMATED SSL
+  # ============================================================================
+  traefik:
+    image: traefik:v3.1
+    container_name: reverse-proxy
+    restart: unless-stopped
+    depends_on:
+      - socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    command:
+      # General
+      - --global.checknewversion=false
+      - --global.sendanonymoususage=false
+      - --log.level=INFO
+      - --accesslog=true
+
+      # EntryPoints
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+
+      # Provider Docker (via Socket Proxy)
+      - --providers.docker=true
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=proxy_net
+
+      # Provider File (Dynamic Security Middleware)
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
+
+      # Let's Encrypt ACME Configuration
+      - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+
+      # Dashboard (Internal only / Protected)
+      - --api.dashboard=${TRAEFIK_DASHBOARD_ENABLE:-false}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./acme:/etc/traefik/acme
+      - ./dynamic:/etc/traefik/dynamic:ro
+    networks:
+      - proxy_net
+      - socket_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 256M
+
+networks:
+  proxy_net:
+    external: true
+  socket_net:
+    internal: true # Network ini murni internal dan tidak terhubung ke internet
