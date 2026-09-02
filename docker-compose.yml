@@ -243,13 +243,14 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
-      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
-      - ROUNDCUBEMAIL_DEFAULT_PORT=143
-      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=993
+      - ROUNDCUBEMAIL_SMTP_SERVER=tls://mailserver
       - ROUNDCUBEMAIL_SMTP_PORT=587
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
     volumes:
       - ./mail/webmail-db:/var/www/html/db
+      - ./mail/roundcube-custom.php:/var/roundcube/config/custom.inc.php:ro
     networks:
       - mail_net
       - proxy_net
