@@ -1,10 +1,316 @@
 # ==============================================================================
-# UNIFIED ROOT DOCKER COMPOSE (KOMPATIBEL DENGAN SEMUA DOCKER MANAGER & CLI)
+# PT ERA DEPO PRIMA - MASTER DOCKER COMPOSE
 # ==============================================================================
-# File ini menggabungkan semua modul (Proxy, Apps, dan Mail) sehingga Anda bisa
-# langsung menjalankan 'docker compose up -d' di root atau dihubungkan ke GUI Manager.
+# File ini menggabungkan seluruh arsitektur (Reverse Proxy SSL, Web, API,
+# Database PostgreSQL, Redis, Mailserver Korporat, & Webmail) dalam 1 stack
+# yang 100% kompatibel dengan SEMUA Docker Manager (Hostinger, Portainer, Dokploy, dll.)
 
-include:
-  - proxy/docker-compose.yml
-  - apps/docker-compose.yml
-  - mail/docker-compose.yml
+services:
+  # ============================================================================
+  # 1. DOCKER SOCKET PROXY (READ-ONLY SECURITY LAYER)
+  # ============================================================================
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy:latest
+    container_name: socket-proxy
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - LOG_LEVEL=info
+      - CONTAINERS=1
+      - SERVICES=1
+      - TASKS=1
+      - NETWORKS=1
+      - NODES=1
+      - INFO=1
+      - VERSION=1
+      - POST=0
+      - DELETE=0
+      - PUT=0
+      - EXEC=0
+      - SECRETS=0
+      - CONFIGS=0
+      - VOLUMES=0
+      - SWARM=0
+      - PLUGINS=0
+      - BUILD=0
+      - SYSTEM=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 64M
+
+  # ============================================================================
+  # 2. TRAEFIK V3 REVERSE PROXY & AUTOMATED SSL (LET'S ENCRYPT)
+  # ============================================================================
+  traefik:
+    image: traefik:v3.1
+    container_name: reverse-proxy
+    restart: unless-stopped
+    depends_on:
+      - socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    command:
+      - --global.checknewversion=false
+      - --global.sendanonymoususage=false
+      - --log.level=INFO
+      - --accesslog=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --providers.docker=true
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=proxy_net
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
+      - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@eradepoprima.com}
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+      - --api.dashboard=${TRAEFIK_DASHBOARD_ENABLE:-false}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/acme:/etc/traefik/acme
+      - ./proxy/dynamic:/etc/traefik/dynamic:ro
+    networks:
+      - proxy_net
+      - socket_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 256M
+
+  # ============================================================================
+  # 3. COMPANY PROFILE (NGINX ALPINE NON-ROOT)
+  # ============================================================================
+  company_profile:
+    build:
+      context: ./apps/company-profile
+      dockerfile: Dockerfile
+    container_name: company-profile
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.company.rule=Host(`${DOMAIN_NAME:-eradepoprima.com}`) || Host(`${WEB_SUBDOMAIN:-www}.${DOMAIN_NAME:-eradepoprima.com}`)"
+      - "traefik.http.routers.company.entrypoints=websecure"
+      - "traefik.http.routers.company.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.company.middlewares=security-headers@file,compression@file"
+      - "traefik.http.services.company.loadbalancer.server.port=8080"
+
+  # ============================================================================
+  # 4. API SERVICE (NODE.JS PRODUCTION BACKEND)
+  # ============================================================================
+  api_service:
+    build:
+      context: ./apps/api-service
+      dockerfile: Dockerfile
+    container_name: api-service
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - DOMAIN_NAME=${DOMAIN_NAME:-eradepoprima.com}
+      - DB_HOST=postgres
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-eradepoprima_db}
+      - DB_USER=${DB_USER:-edp_admin}
+      - DB_PASSWORD=${DB_PASSWORD:-EdpSecureDbPassword_2026!#}
+      - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-EdpSecureRedisPassword_2026!#}
+      - JWT_SECRET=${JWT_SECRET:-EdpSecureJWTSecretKey_9876543210!#}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - proxy_net
+      - backend_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`${API_SUBDOMAIN:-api}.${DOMAIN_NAME:-eradepoprima.com}`) || (Host(`${DOMAIN_NAME:-eradepoprima.com}`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.api.priority=100"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.api.middlewares=security-headers@file,rate-limit-api@file,compression@file"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
+
+  # ============================================================================
+  # 5. POSTGRESQL 16 (CENTRAL ISOLATED DATABASE)
+  # ============================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      POSTGRES_DB: ${DB_NAME:-eradepoprima_db}
+      POSTGRES_USER: ${DB_USER:-edp_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-EdpSecureDbPassword_2026!#}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./apps/postgres/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-edp_admin} -d ${DB_NAME:-eradepoprima_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+
+  # ============================================================================
+  # 6. REDIS 7 (CENTRAL ISOLATED CACHE)
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: ["sh", "-c", "redis-server --requirepass \"${REDIS_PASSWORD:-EdpSecureRedisPassword_2026!#}\" --save 60 1 --loglevel warning"]
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-EdpSecureRedisPassword_2026!#}
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"${REDIS_PASSWORD:-EdpSecureRedisPassword_2026!#}\" ping | grep PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+  # ============================================================================
+  # 7. DOCKER-MAILSERVER (SECURE ENTERPRISE MAIL SUITE)
+  # ============================================================================
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: ${MAIL_HOSTNAME:-mail.eradepoprima.com}
+    domainname: ${DOMAIN_NAME:-eradepoprima.com}
+    restart: unless-stopped
+    environment:
+      - OVERRIDE_HOSTNAME=${MAIL_HOSTNAME:-mail.eradepoprima.com}
+      - LOG_LEVEL=info
+      - ONE_DIR=1
+      - ENABLE_RSPAMD=${ENABLE_RSPAMD:-1}
+      - ENABLE_CLAMAV=${ENABLE_CLAMAV:-1}
+      - ENABLE_FAIL2BAN=${ENABLE_FAIL2BAN:-1}
+      - ENABLE_OPENDKIM=${ENABLE_OPENDKIM:-1}
+      - ENABLE_POSTGREY=${ENABLE_POSTGREY:-0}
+      - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@eradepoprima.com}
+      - SSL_TYPE=letsencrypt
+      - SSL_DOMAIN=${MAIL_HOSTNAME:-mail.eradepoprima.com}
+      - RSPAMD_GREYLISTING=1
+      - RSPAMD_LEARN=1
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "993:993"
+      - "143:143"
+    volumes:
+      - ./mail/mail-data:/var/mail
+      - ./mail/mail-state:/var/mail-state
+      - ./mail/mail-logs:/var/log/mail
+      - ./mail/config:/tmp/docker-mailserver
+      - /etc/localtime:/etc/localtime:ro
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - mail_net
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1536M
+
+  # ============================================================================
+  # 8. ROUNDCUBE WEBMAIL (BROWSER INBOX)
+  # ============================================================================
+  webmail:
+    image: roundcube/roundcubemail:latest
+    container_name: roundcube_webmail
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - ROUNDCUBEMAIL_DEFAULT_HOST=mailserver
+      - ROUNDCUBEMAIL_DEFAULT_PORT=143
+      - ROUNDCUBEMAIL_SMTP_SERVER=mailserver
+      - ROUNDCUBEMAIL_SMTP_PORT=587
+      - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
+    volumes:
+      - ./mail/webmail-db:/var/www/html/db
+    networks:
+      - mail_net
+      - proxy_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webmail.rule=Host(`${WEBMAIL_SUBDOMAIN:-webmail}.${DOMAIN_NAME:-eradepoprima.com}`)"
+      - "traefik.http.routers.webmail.entrypoints=websecure"
+      - "traefik.http.routers.webmail.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.webmail.middlewares=security-headers@file,compression@file"
+      - "traefik.http.services.webmail.loadbalancer.server.port=80"
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  proxy_net:
+    driver: bridge
+  socket_net:
+    internal: true
+  backend_net:
+    internal: true
+  mail_net:
+    driver: bridge
