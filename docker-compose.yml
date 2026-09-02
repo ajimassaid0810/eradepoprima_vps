@@ -77,11 +77,13 @@ services:
       # Router HTTP (Bisa dibuka langsung via IP VPS maupun Domain)
       - "traefik.http.routers.company-http.rule=PathPrefix(`/`)"
       - "traefik.http.routers.company-http.entrypoints=web"
+      - "traefik.http.routers.company-http.service=company-svc"
       # Router HTTPS (Aktif otomatis saat domain diakses via HTTPS)
       - "traefik.http.routers.company-https.rule=Host(`${DOMAIN_NAME:-eradepoprima.com}`) || Host(`${WEB_SUBDOMAIN:-www}.${DOMAIN_NAME:-eradepoprima.com}`)"
       - "traefik.http.routers.company-https.entrypoints=websecure"
       - "traefik.http.routers.company-https.tls.certresolver=letsencrypt"
-      - "traefik.http.services.company-profile.loadbalancer.server.port=80"
+      - "traefik.http.routers.company-https.service=company-svc"
+      - "traefik.http.services.company-svc.loadbalancer.server.port=80"
 
   # ============================================================================
   # 4. API SERVICE (NODE.JS PRODUCTION BACKEND)
@@ -124,12 +126,14 @@ services:
       - "traefik.http.routers.api-http.rule=PathPrefix(`/api`)"
       - "traefik.http.routers.api-http.priority=100"
       - "traefik.http.routers.api-http.entrypoints=web"
+      - "traefik.http.routers.api-http.service=api-svc"
       # Router HTTPS API
       - "traefik.http.routers.api-https.rule=Host(`${API_SUBDOMAIN:-api}.${DOMAIN_NAME:-eradepoprima.com}`) || PathPrefix(`/api`)"
       - "traefik.http.routers.api-https.priority=100"
       - "traefik.http.routers.api-https.entrypoints=websecure"
       - "traefik.http.routers.api-https.tls.certresolver=letsencrypt"
-      - "traefik.http.services.api-service.loadbalancer.server.port=3000"
+      - "traefik.http.routers.api-https.service=api-svc"
+      - "traefik.http.services.api-svc.loadbalancer.server.port=3000"
 
   # ============================================================================
   # 5. POSTGRESQL 16 (CENTRAL ISOLATED DATABASE)
@@ -259,11 +263,13 @@ services:
       - "traefik.http.routers.webmail-http.rule=PathPrefix(`/webmail`)"
       - "traefik.http.routers.webmail-http.priority=90"
       - "traefik.http.routers.webmail-http.entrypoints=web"
+      - "traefik.http.routers.webmail-http.service=webmail-svc"
       # Router HTTPS Webmail
       - "traefik.http.routers.webmail-https.rule=Host(`${WEBMAIL_SUBDOMAIN:-webmail}.${DOMAIN_NAME:-eradepoprima.com}`)"
       - "traefik.http.routers.webmail-https.entrypoints=websecure"
       - "traefik.http.routers.webmail-https.tls.certresolver=letsencrypt"
-      - "traefik.http.services.roundcube-webmail.loadbalancer.server.port=80"
+      - "traefik.http.routers.webmail-https.service=webmail-svc"
+      - "traefik.http.services.webmail-svc.loadbalancer.server.port=80"
 
 volumes:
   postgres_data:
