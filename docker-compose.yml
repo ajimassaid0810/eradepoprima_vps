@@ -82,7 +82,7 @@ services:
       - "traefik.http.routers.company_https.entrypoints=websecure"
       - "traefik.http.routers.company_https.tls.certresolver=letsencrypt"
       - "traefik.http.routers.company_https.service=company_service"
-      - "traefik.http.services.company_service.loadbalancer.server.port=8080"
+      - "traefik.http.services.company_service.loadbalancer.server.port=80"
 
   # ============================================================================
   # 4. API SERVICE (NODE.JS PRODUCTION BACKEND)
