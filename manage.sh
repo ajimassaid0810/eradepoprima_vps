@@ -12,7 +12,12 @@ if [ ! -f .env ]; then
     exit 1
 fi
 
-export $(grep -v '^#' .env | xargs -d '\n' 2>/dev/null || true)
+if [ -f .env ]; then
+    set -a
+    # shellcheck disable=SC1091
+    source .env 2>/dev/null || true
+    set +a
+fi
 
 usage() {
     echo "======================================================================"
