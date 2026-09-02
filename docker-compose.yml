@@ -324,8 +324,11 @@ networks:
     name: proxy_net
     external: true
   socket_net:
+    name: socket_net
     internal: true
   backend_net:
+    name: backend_net
     internal: true
   mail_net:
+    name: mail_net
     driver: bridge
