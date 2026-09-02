@@ -5,53 +5,12 @@
 
 services:
   # ============================================================================
-  # 1. DOCKER SOCKET PROXY (READ-ONLY SECURITY LAYER)
-  # ============================================================================
-  socket-proxy:
-    image: tecnativa/docker-socket-proxy:latest
-    container_name: socket-proxy
-    restart: unless-stopped
-    read_only: true
-    tmpfs:
-      - /run
-    environment:
-      - LOG_LEVEL=info
-      - CONTAINERS=1
-      - SERVICES=1
-      - TASKS=1
-      - NETWORKS=1
-      - NODES=1
-      - INFO=1
-      - VERSION=1
-      - POST=0
-      - DELETE=0
-      - PUT=0
-      - EXEC=0
-      - SECRETS=0
-      - CONFIGS=0
-      - VOLUMES=0
-      - SWARM=0
-      - PLUGINS=0
-      - BUILD=0
-      - SYSTEM=0
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - socket_net
-    deploy:
-      resources:
-        limits:
-          memory: 64M
-
-  # ============================================================================
-  # 2. TRAEFIK V3 REVERSE PROXY & AUTOMATED SSL (LET'S ENCRYPT)
+  # 1. TRAEFIK V3 REVERSE PROXY & AUTOMATED SSL (LET'S ENCRYPT)
   # ============================================================================
   traefik:
     image: traefik:v3.1
     container_name: reverse-proxy
     restart: unless-stopped
-    depends_on:
-      - socket-proxy
     security_opt:
       - no-new-privileges:true
     command:
@@ -64,9 +23,9 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
 
-      # Docker Provider via Socket Proxy
+      # Docker Provider (Direct Read-Only Socket)
       - --providers.docker=true
-      - --providers.docker.endpoint=tcp://socket-proxy:2375
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=proxy_net
 
@@ -84,11 +43,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./proxy/acme:/etc/traefik/acme
       - ./proxy/dynamic:/etc/traefik/dynamic:ro
     networks:
       - proxy_net
-      - socket_net
     deploy:
       resources:
         limits:
@@ -323,9 +282,6 @@ networks:
   proxy_net:
     name: proxy_net
     external: true
-  socket_net:
-    name: socket_net
-    internal: true
   backend_net:
     name: backend_net
     internal: true
