@@ -3,775 +3,908 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT Era Depo Prima | Pusat Layanan Depo Petikemas & Logistik Terpadu</title>
-    <meta name="description" content="PT Era Depo Prima - Solusi terpercaya depo petikemas, storage reefer, perawatan IICL, pergudangan modern dan rantai pasok logistik terintegrasi.">
+    <title>PT Era Depo Prima | Integrated Multimodal Logistics &amp; Port Solutions</title>
+    <meta name="description" content="PT Era Depo Prima - Solusi terpadu logistik multimoda, pengelolaan depo kontainer, kargo break bulk heavy lift, trucking armada mandiri, cold chain, dan PPJK kepabeanan di Tanjung Priok.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #070c18;
-            --bg-card: rgba(15, 23, 42, 0.75);
-            --bg-card-hover: rgba(30, 41, 59, 0.85);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(14, 165, 233, 0.35);
-            --text-primary: #f8fafc;
-            --text-muted: #94a3b8;
-            --brand-primary: #0284c7;    /* Marine Deep Blue */
-            --brand-accent: #0ea5e9;     /* Cyan Logistics Accent */
-            --brand-amber: #f59e0b;      /* Industrial Amber */
-            --brand-emerald: #10b981;    /* Operation Green */
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 90% 70%, rgba(14, 165, 233, 0.10) 0%, transparent 45%),
-                radial-gradient(circle at 50% 100%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Top Bar */
-        .topbar {
-            background: rgba(15, 23, 42, 0.9);
-            border-bottom: 1px solid var(--border-subtle);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            padding: 0.5rem 0;
-        }
-
-        .topbar-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .topbar-left, .topbar-right {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        /* Navbar */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(7, 12, 24, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1.1rem 0;
-        }
-
-        .nav-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-accent) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
-        }
-
-        .brand-text {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 1.35rem;
-            letter-spacing: -0.02em;
-        }
-
-        .brand-text span {
-            color: var(--brand-accent);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-menu a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
-        }
-
-        .nav-menu a:hover {
-            color: #fff;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, var(--brand-primary) 0%, #0369a1 100%);
-            color: #fff;
-            padding: 0.65rem 1.35rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
-        }
-
-        /* Hero */
-        .hero {
-            padding: 6.5rem 0 4.5rem;
-            position: relative;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(14, 165, 233, 0.1);
-            border: 1px solid rgba(14, 165, 233, 0.3);
-            color: var(--brand-accent);
-            padding: 0.4rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: 3.6rem;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            max-width: 900px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 680px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 4rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.75rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            border: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-primary) 100%);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
-        }
-
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.04);
-            color: #fff;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 18px;
-            backdrop-filter: blur(12px);
-        }
-
-        .stat-item {
-            text-align: center;
-            position: relative;
-        }
-
-        .stat-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 20%;
-            height: 60%;
-            width: 1px;
-            background: var(--border-subtle);
-        }
-
-        .stat-num {
-            font-family: var(--font-display);
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-num span {
-            color: var(--brand-accent);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* Services Section */
-        .section {
-            padding: 6rem 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-tag {
-            color: var(--brand-accent);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2.25rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            border-color: var(--border-glow);
-            background: var(--bg-card-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .service-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
-            background: rgba(14, 165, 233, 0.1);
-            border: 1px solid rgba(14, 165, 233, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: var(--brand-accent);
-        }
-
-        .service-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 0.85rem;
-        }
-
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .feature-bullets {
-            list-style: none;
-        }
-
-        .feature-bullets li {
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .feature-bullets li::before {
-            content: '✓';
-            color: var(--brand-accent);
-            font-weight: bold;
-        }
-
-        /* Contact & Inquiry Form */
-        .inquiry-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 3.5rem;
-            backdrop-filter: blur(16px);
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-            color: #e2e8f0;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 8px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-subtle);
-            color: #fff;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--brand-accent);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .form-status-alert {
-            padding: 0.85rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .alert-success {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid var(--brand-emerald);
-            color: #34d399;
-        }
-
-        .alert-error {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid #ef4444;
-            color: #f87171;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            padding: 3.5rem 0 2rem;
-            background: #050811;
-            margin-top: 5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        @media (max-width: 900px) {
-            .hero h1 { font-size: 2.5rem; }
-            .inquiry-wrapper { grid-template-columns: 1fr; padding: 2rem; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .nav-menu { display: none; }
-            .topbar { display: none; }
-            .stat-item:not(:last-child)::after { display: none; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-    <!-- Top Info Bar -->
+    <!-- 1. Top Bar -->
     <div class="topbar">
         <div class="container topbar-content">
             <div class="topbar-left">
-                <span>📍 Kawasan Industri & Depo Terpadu</span>
-                <span>📞 Hotline: +62 21 8899-XXXX</span>
-                <span>✉️ info@eradepoprima.com</span>
+                <span class="topbar-item"><i data-lucide="phone"></i> +62 21 4390-8888</span>
+                <span class="topbar-item"><i data-lucide="mail"></i> commercial@eradepoprima.co.id</span>
+                <span class="topbar-item"><i data-lucide="map-pin"></i> Tanjung Priok Gateway, Jakarta Utara</span>
             </div>
             <div class="topbar-right">
-                <span style="color: var(--brand-emerald);">● Sistem Depo: Operational 24/7</span>
+                <span class="status-badge"><span class="status-dot"></span> Gate &amp; Yard 24/7 Active</span>
+                <span class="topbar-item">ISO 9001 &bull; Licensed PPJK &bull; IICL Certified</span>
             </div>
         </div>
     </div>
 
-    <!-- Main Navigation -->
-    <nav>
+    <!-- 2. Sticky Navbar (CEVA Logistics Style) -->
+    <header class="navbar">
         <div class="container nav-wrapper">
-            <a href="#" class="brand-logo">
-                <div class="logo-icon">EDP</div>
-                <div class="brand-text">ERA DEPO <span>PRIMA</span></div>
+            <a href="index.html" class="brand-logo">
+                <div class="logo-graphic">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+                        <polygon points="24,6 42,16 24,26 6,16" fill="#0284C7" />
+                        <polygon points="6,16 24,26 24,32 6,22" fill="#002B5C" />
+                        <polygon points="42,16 24,26 24,32 42,22" fill="#38BDF8" />
+                        <polygon points="24,18 42,28 24,38 6,28" fill="#E30613" />
+                        <polygon points="6,28 24,38 24,44 6,34" fill="#990000" />
+                        <polygon points="42,28 24,38 24,44 42,34" fill="#F87171" />
+                    </svg>
+                </div>
+                <div class="brand-info">
+                    <span class="brand-name">ERA DEPO <span>PRIMA</span></span>
+                    <span class="brand-tagline">Integrated Multimodal Logistics</span>
+                </div>
             </a>
+
             <ul class="nav-menu">
-                <li><a href="#tentang">Tentang Kami</a></li>
-                <li><a href="#layanan">Layanan Depo</a></li>
-                <li><a href="#fasilitas">Fasilitas</a></li>
-                <li><a href="#tracking">Simulasi Tracking</a></li>
-                <li><a href="#kontak">Hubungi Kami</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link active">Beranda</a></li>
+                <li class="nav-item">
+                    <a href="#solutions" class="nav-link">Our Solutions <i data-lucide="chevron-down"></i></a>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-header">6 Klaster Solusi Terpadu</div>
+                        <ul class="dropdown-list">
+                            <li><a href="solutions/container.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="box"></i></div><div class="dropdown-text"><strong>Container</strong><span>Depo peti kemas, IICL repair &amp; reefer hub</span></div></a></li>
+                            <li><a href="solutions/break-bulk.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="anchor"></i></div><div class="dropdown-text"><strong>Break Bulk</strong><span>Heavy lift, project cargo &amp; stevedoring</span></div></a></li>
+                            <li><a href="solutions/aset.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="shield"></i></div><div class="dropdown-text"><strong>Aset</strong><span>Reach stacker 45T, depo yard &amp; workshop</span></div></a></li>
+                            <li><a href="solutions/trucking.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="truck"></i></div><div class="dropdown-text"><strong>Trucking</strong><span>Trailer 20ft/40ft, lowbed &amp; tronton wingbox</span></div></a></li>
+                            <li><a href="solutions/impor.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="arrow-down-left"></i></div><div class="dropdown-text"><strong>Impor</strong><span>PPJK, customs clearance &amp; CFS de-consolidation</span></div></a></li>
+                            <li><a href="solutions/ekspor.html" class="dropdown-link"><div class="dropdown-icon"><i data-lucide="arrow-up-right"></i></div><div class="dropdown-text"><strong>Ekspor</strong><span>PEB declaration, stuffing &amp; sertifikasi VGM</span></div></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="#spotlight" class="nav-link">Spotlight</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">Tentang Kami</a></li>
+                <li class="nav-item"><a href="#cold-chain" class="nav-link">Cold Chain</a></li>
+                <li class="nav-item"><a href="#locations" class="nav-link">Lokasi</a></li>
             </ul>
-            <a href="#kontak" class="nav-btn">Minta Penawaran</a>
+
+            <div class="nav-actions">
+                <a href="#rfq" class="btn-rfq-nav"><i data-lucide="calculator"></i> Request Quote</a>
+                <button class="mobile-toggle" aria-label="Toggle navigation"><i data-lucide="menu"></i></button>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">
-                <span>⚓</span> Solusi Logistik & Depo Petikemas Kelas Dunia
-            </div>
-            <h1>Pusat Layanan Depo Petikemas & <span>Logistik Rantai Pasok Terpadu</span></h1>
-            <p class="hero-desc">
-                PT Era Depo Prima menghadirkan layanan penyimpanan kontainer berstandar internasional, pemeliharaan IICL, reefer monitoring 24/7, serta sistem pergudangan modern berbasis teknologi.
-            </p>
-            <div class="hero-actions">
-                <a href="#layanan" class="btn btn-primary">Lihat Seluruh Layanan</a>
-                <a href="#kontak" class="btn btn-outline">Konsultasi Kebutuhan Depo</a>
+    <!-- 3. Hero Section (CEVA Logistics Inspired with Video/Photo Carousel) -->
+    <section class="hero-ceva" id="hero">
+        <!-- Background Media Slider (Supports Video & Photos) -->
+        <div class="hero-slider-bg">
+            <!-- Slide 1: Maritime Cargo Vessel (High-Definition Looping Video) -->
+            <div class="hero-bg-slide active">
+                <video class="hero-bg-video" autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-cargo-ship-in-the-sea-41528-large.mp4" type="video/mp4">
+                </video>
+                <div class="hero-slide-overlay"></div>
+                <div class="hero-grid-pattern"></div>
             </div>
 
-            <!-- Key Figures -->
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-num">15,000<span>+</span></div>
-                    <div class="stat-label">Kapasitas Penyimpanan (TEUs)</div>
+            <!-- Slide 2: Container Depo Yard (Photo) -->
+            <div class="hero-bg-slide">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80" alt="Fasilitas Depo Kontainer PT Era Depo Prima" class="hero-bg-img">
+                <div class="hero-slide-overlay"></div>
+                <div class="hero-grid-pattern"></div>
+            </div>
+
+            <!-- Slide 3: Break Bulk & Heavy Lift Cargo (Photo) -->
+            <div class="hero-bg-slide">
+                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=2000&q=80" alt="Kargo Proyek Break Bulk & Heavy Lift" class="hero-bg-img">
+                <div class="hero-slide-overlay"></div>
+                <div class="hero-grid-pattern"></div>
+            </div>
+
+            <!-- Slide 4: Trucking Fleet & Inland Haulage (Photo) -->
+            <div class="hero-bg-slide">
+                <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2000&q=80" alt="Armada Trucking Pelabuhan Tanjung Priok" class="hero-bg-img">
+                <div class="hero-slide-overlay"></div>
+                <div class="hero-grid-pattern"></div>
+            </div>
+        </div>
+
+        <div class="container hero-grid">
+            <!-- Left Column: Synchronized Text Slider -->
+            <div class="hero-content-slider">
+                <!-- Text Slide 1: Multimodal Forwarding -->
+                <div class="hero-text-slide active">
+                    <span class="hero-badge"><span class="live-dot"></span> Multimodal Logistics &amp; Port Operator</span>
+                    <h1 class="hero-title">
+                        MOVING CARGO.<br>
+                        DELIVERING <span class="accent-red">POSSIBILITIES.</span>
+                    </h1>
+                    <p class="hero-description">
+                        Menghubungkan rantai pasok industri global dengan akses langsung pelabuhan Tanjung Priok, armada alat berat mandiri, serta kepatuhan kepabeanan terakreditasi sejak 2017.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#solutions" class="btn btn-primary btn-lg"><i data-lucide="layers"></i> Jelajahi 6 Solusi</a>
+                        <a href="#rfq" class="btn btn-outline btn-lg"><i data-lucide="send"></i> Permintaan Penawaran (RFQ)</a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-num">8.5<span> Ha</span></div>
-                    <div class="stat-label">Total Luas Area Operasional</div>
+
+                <!-- Text Slide 2: Container Depot & Reefer Hub -->
+                <div class="hero-text-slide">
+                    <span class="hero-badge"><i data-lucide="box"></i> Certified Container Depot Hub</span>
+                    <h1 class="hero-title">
+                        5,000+ TEUs DEPOT &amp;<br>
+                        <span class="accent-red">IICL-5 REPAIR HUB</span>
+                    </h1>
+                    <p class="hero-description">
+                        Fasilitas penumpukan berlantai beton bertulang, stasiun daya cold chain reefer 24/7, perbaikan kontainer standar IICL resmi, dan turnaround gate-in/out kurang dari 15 menit.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="solutions/container.html" class="btn btn-primary btn-lg"><i data-lucide="box"></i> Solusi Container</a>
+                        <a href="solutions/container.html#rfq" class="btn btn-outline btn-lg"><i data-lucide="send"></i> Minta Tarif Depo</a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-num">24<span>/7</span></div>
-                    <div class="stat-label">Reefer Monitoring & Security</div>
+
+                <!-- Text Slide 3: Break Bulk & Heavy Lift -->
+                <div class="hero-text-slide">
+                    <span class="hero-badge"><i data-lucide="anchor"></i> Engineered Heavy Project Cargo</span>
+                    <h1 class="hero-title">
+                        BREAK BULK &amp;<br>
+                        <span class="accent-red">HEAVY LIFT EXPERTS</span>
+                    </h1>
+                    <p class="hero-description">
+                        Rekayasa pengiriman kargo berdimensi khusus (out-of-gauge), stevedoring pelabuhan, sertifikasi lashing maritim MWS, serta tongkang antar pulau untuk proyek energi dan manufaktur.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="solutions/break-bulk.html" class="btn btn-primary btn-lg"><i data-lucide="anchor"></i> Solusi Break Bulk</a>
+                        <a href="solutions/break-bulk.html#rfq" class="btn btn-outline btn-lg"><i data-lucide="send"></i> Konsultasi Heavy Lift</a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-num">99.9<span>%</span></div>
-                    <div class="stat-label">Uptime Gate & Inventory System</div>
+
+                <!-- Text Slide 4: Trucking & Inland Transport -->
+                <div class="hero-text-slide">
+                    <span class="hero-badge"><i data-lucide="truck"></i> Nationwide Inland Transport</span>
+                    <h1 class="hero-title">
+                        INTEGRATED TRUCKING &amp;<br>
+                        <span class="accent-red">GPS TELEMATICS 24/7</span>
+                    </h1>
+                    <p class="hero-description">
+                        Ratusan armada sasis trailer mandiri 20ft/40ft, lowbed multi-axle, dan tronton wingbox menghubungkan dermaga Tanjung Priok ke kawasan industri di seluruh Jawa dan Sumatera.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="solutions/trucking.html" class="btn btn-primary btn-lg"><i data-lucide="truck"></i> Solusi Trucking</a>
+                        <a href="solutions/trucking.html#rfq" class="btn btn-outline btn-lg"><i data-lucide="send"></i> Cek Tarif Rute</a>
+                    </div>
+                </div>
+
+                <!-- Quick Action Box (Docked below slides) -->
+                <div class="quick-action-box">
+                    <div class="quick-action-text">
+                        <strong>Butuh Penawaran Cepat?</strong>
+                        <span>Hubungi meja komersial kami atau isi formulir rute secara langsung.</span>
+                    </div>
+                    <a href="#rfq" class="btn btn-secondary btn-sm">Mulai Sekarang</a>
+                </div>
+            </div>
+
+            <!-- Right Column: Floating Credibility Metrics -->
+            <div class="hero-metrics-floating">
+                <div class="floating-metrics-header">
+                    <h3><i data-lucide="bar-chart-3" style="color: var(--ceva-red);"></i> Operational Snapshot</h3>
+                </div>
+                <div class="metrics-row">
+                    <div class="metric-item red-border">
+                        <div class="metric-number" data-counter="600" data-suffix="+">600+</div>
+                        <div class="metric-label">Rute Pelayaran Global</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-number" data-counter="10000" data-suffix="+">10,000+</div>
+                        <div class="metric-label">Port-Pairs Terhubung</div>
+                    </div>
+                </div>
+                <div class="metrics-row">
+                    <div class="metric-item">
+                        <div class="metric-number">99.8%</div>
+                        <div class="metric-label">SLA Ketepatan Waktu</div>
+                    </div>
+                    <div class="metric-item red-border">
+                        <div class="metric-number" data-counter="5000" data-suffix="+ TEUs">5,000+</div>
+                        <div class="metric-label">Kapasitas Staging Depo</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.75rem; display: flex; justify-content: space-between;">
+                    <span>✓ Depo Gate 24/7 Tanjung Priok</span>
+                    <span>✓ PPJK Resmi Terdaftar</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Bottom Navigation Bar (CEVA Style) -->
+        <div class="container hero-carousel-controls">
+            <div class="hero-controls-wrap">
+                <div class="hero-carousel-pagination">
+                    <span class="slide-counter">
+                        <strong id="currentSlideNum">01</strong> / <span id="totalSlideNum">04</span>
+                    </span>
+                    <div class="slide-indicators">
+                        <div class="indicator-bar active" data-slide="0" aria-label="Slide 1"><div class="indicator-progress"></div></div>
+                        <div class="indicator-bar" data-slide="1" aria-label="Slide 2"><div class="indicator-progress"></div></div>
+                        <div class="indicator-bar" data-slide="2" aria-label="Slide 3"><div class="indicator-progress"></div></div>
+                        <div class="indicator-bar" data-slide="3" aria-label="Slide 4"><div class="indicator-progress"></div></div>
+                    </div>
+                    <button id="heroPlayPauseBtn" class="hero-play-pause-btn" aria-label="Pause or Resume Auto Slide">
+                        <i data-lucide="pause"></i>
+                    </button>
+                </div>
+
+                <div class="hero-nav-buttons">
+                    <button id="heroPrevBtn" class="hero-arrow-btn" aria-label="Previous Slide">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button id="heroNextBtn" class="hero-arrow-btn" aria-label="Next Slide">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="layanan" class="section">
+    <!-- 4. Trust Bar -->
+    <section class="trust-bar">
         <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Layanan Unggulan</span>
-                <h2 class="section-title">Solusi Terintegrasi PT Era Depo Prima</h2>
-                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
-                    Kami memastikan alur distribusi dan penanganan kontainer Anda berjalan aman, tepat waktu, dan memenuhi standar maritim global.
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon"><i data-lucide="shield-check"></i></div>
+                    <div class="trust-content">
+                        <div class="trust-val">100% Milik Sendiri</div>
+                        <div class="trust-desc">Armada alat berat &amp; sasis trailer mandiri</div>
+                    </div>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon"><i data-lucide="wrench"></i></div>
+                    <div class="trust-content">
+                        <div class="trust-val">IICL-5 Certified</div>
+                        <div class="trust-desc">Standar survei &amp; perbaikan peti kemas</div>
+                    </div>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon"><i data-lucide="file-check"></i></div>
+                    <div class="trust-content">
+                        <div class="trust-val">Licensed PPJK</div>
+                        <div class="trust-desc">Modul CEISA DJBC &amp; ahli pabean resmi</div>
+                    </div>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon"><i data-lucide="thermometer-snowflake"></i></div>
+                    <div class="trust-content">
+                        <div class="trust-val">-40°C to +25°C</div>
+                        <div class="trust-desc">Fasilitas cold storage &amp; reefer staging</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Our Solutions Section (CEVA Blue Navy Theme + 6 Clusters) -->
+    <section class="solutions-section" id="solutions">
+        <div class="container">
+            <div class="solutions-header-wrap">
+                <div>
+                    <span class="section-tag">OUR SOLUTIONS &bull; 6 KLASTER UTAMA</span>
+                    <h2 class="section-title">Kapabilitas Terintegrasi dari Hulu ke Hilir</h2>
+                    <p class="section-lead" style="margin-bottom: 0;">
+                        Pilih klaster solusi untuk melihat rincian 6 sub-layanan spesifik, spesifikasi teknis, dan studi kasus di dalamnya.
+                    </p>
+                </div>
+                <div>
+                    <a href="#rfq" class="btn btn-outline"><i data-lucide="send"></i> Konsultasi Semua Layanan</a>
+                </div>
+            </div>
+
+            <!-- The 6 Main Clusters Grid -->
+            <div class="solutions-grid-6">
+                <!-- Cluster 1: Container -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Container Depot" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 01</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Container</h3>
+                        <p class="cluster-card-desc">
+                            Depo petikemas modern kapasitas 5,000+ TEUs, inspeksi &amp; perbaikan standar IICL, pencucian food-grade, reefer monitoring, dan jual-beli/sewa box.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">Depo Storage</span>
+                                <span class="child-tag">IICL Repair</span>
+                                <span class="child-tag">Cleaning Wash</span>
+                                <span class="child-tag">Reefer PTI</span>
+                                <span class="child-tag">Sale &amp; Lease</span>
+                                <span class="child-tag">Handling Lo-Lo</span>
+                            </div>
+                        </div>
+                        <a href="solutions/container.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Container</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cluster 2: Break Bulk -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80" alt="Break Bulk Cargo" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 02</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Break Bulk</h3>
+                        <p class="cluster-card-desc">
+                            Rekayasa pengiriman muatan berat (heavy lift) dan out-of-gauge. Stevedoring kapal pelabuhan, sertifikasi lashing maritim, dan sewa tongkang antar pulau.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">Project Cargo</span>
+                                <span class="child-tag">Stevedoring</span>
+                                <span class="child-tag">Lashing MWS</span>
+                                <span class="child-tag">Barging Tugboat</span>
+                                <span class="child-tag">Route Survey</span>
+                                <span class="child-tag">Marshalling Yard</span>
+                            </div>
+                        </div>
+                        <a href="solutions/break-bulk.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Break Bulk</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cluster 3: Aset -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80" alt="Aset & Peralatan" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 03</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Aset &amp; Fasilitas</h3>
+                        <p class="cluster-card-desc">
+                            Kepemilikan aset mandiri: armada Reach Stacker 45T, depo berlantai beton bertulang, covered warehouse, bengkel internal, dan ratusan trailer chassis.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">Reach Stacker 45T</span>
+                                <span class="child-tag">Depo Beton</span>
+                                <span class="child-tag">Warehouse</span>
+                                <span class="child-tag">Workshop Hub</span>
+                                <span class="child-tag">Trailer Sasis</span>
+                                <span class="child-tag">Digital YMS</span>
+                            </div>
+                        </div>
+                        <a href="solutions/aset.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Aset</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cluster 4: Trucking -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80" alt="Trucking Inland Haulage" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 04</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Trucking</h3>
+                        <p class="cluster-card-desc">
+                            Armada angkutan darat terintegrasi. Trailer kontainer 20ft/40ft, lowbed multi-axle, tronton wingbox, serta layanan shuttle port-to-door dengan GPS real-time.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">Container Haulage</span>
+                                <span class="child-tag">Lowbed Dolly</span>
+                                <span class="child-tag">Wingbox FMCG</span>
+                                <span class="child-tag">Port-to-Door</span>
+                                <span class="child-tag">Dedicated Fleet</span>
+                                <span class="child-tag">Cross-Docking</span>
+                            </div>
+                        </div>
+                        <a href="solutions/trucking.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Trucking</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cluster 5: Impor -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80" alt="Impor Customs Clearance" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 05</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Impor</h3>
+                        <p class="cluster-card-desc">
+                            PPJK resmi berlisensi DJBC untuk pengurusan dokumen PIB (Jalur Hijau/Kuning/Merah), perizinan Lartas, asistensi behandle, CFS de-konsolidasi, dan door delivery.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">PPJK PIB</span>
+                                <span class="child-tag">Regulasi Lartas</span>
+                                <span class="child-tag">CFS Stripping</span>
+                                <span class="child-tag">Behandle Fisik</span>
+                                <span class="child-tag">Undername KITE</span>
+                                <span class="child-tag">All-in Delivery</span>
+                            </div>
+                        </div>
+                        <a href="solutions/impor.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Impor</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cluster 6: Ekspor -->
+                <div class="cluster-card">
+                    <div class="cluster-card-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1506898667547-42e22a468b3d?auto=format&fit=crop&w=800&q=80" alt="Ekspor Global Forwarding" class="cluster-card-img">
+                        <div class="cluster-overlay"></div>
+                        <span class="cluster-tag-badge">KLASTER 06</span>
+                    </div>
+                    <div class="cluster-card-body">
+                        <h3 class="cluster-card-title">Ekspor</h3>
+                        <p class="cluster-card-desc">
+                            Fasilitasi ekspor ke pasar global. Dokumen PEB &amp; NPE cepat, stuffing &amp; lashing depo, jembatan timbang bersertifikasi VGM SOLAS, ocean freight booking, dan COO.
+                        </p>
+                        <div class="cluster-children-preview">
+                            <div class="cluster-children-label">6 Sub-Layanan Tersedia:</div>
+                            <div class="cluster-children-tags">
+                                <span class="child-tag">Customs PEB</span>
+                                <span class="child-tag">Stuffing Depo</span>
+                                <span class="child-tag">Timbang VGM</span>
+                                <span class="child-tag">Ocean Booking</span>
+                                <span class="child-tag">Fumigasi COO</span>
+                                <span class="child-tag">Project Export</span>
+                            </div>
+                        </div>
+                        <a href="solutions/ekspor.html" class="btn-explore-cluster">
+                            <span>Jelajahi Klaster Ekspor</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Project Spotlight (Engineering Workflow) -->
+    <section class="section-padding bg-darker" id="spotlight">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3.5rem;">
+                <span class="section-tag center">STUDI KASUS &amp; REKAYASA LOGISTIK</span>
+                <h2 class="section-title">Pengalaman Nyata Menangani Kargo Strategis Nasional</h2>
+                <p class="section-lead">
+                    Studi kasus proyek BYD Electric Vehicle West Java &amp; Bayan Resources: 5 tahapan terpadu tanpa risiko kerusakan.
                 </p>
             </div>
 
-            <div class="services-grid">
-                <!-- 1. Depo Petikemas -->
-                <div class="service-card">
-                    <div class="service-icon">📦</div>
-                    <h3>Depo Petikemas & Storage</h3>
-                    <p>Penyimpanan empty & laden container dengan sistem blok tertata rapi, gate otomatis, dan alat berat Reach Stacker modern.</p>
-                    <ul class="feature-bullets">
-                        <li>Stacking management berbasis ERP</li>
-                        <li>Turnaround gate time super cepat</li>
-                        <li>Laporan harian EDI / Real-time</li>
-                    </ul>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;">
+                <div class="about-card" style="border-top: 3px solid var(--ceva-red);">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--ceva-red);">TAHAP 01</span>
+                    <h4 style="margin: 0.5rem 0;">Route Survey</h4>
+                    <p style="font-size: 0.8125rem;">Pemetaan rute jalan, perhitungan kapasitas jembatan, dan izin dispensasi jalan.</p>
                 </div>
-
-                <!-- 2. Reefer Hub -->
-                <div class="service-card">
-                    <div class="service-icon">❄️</div>
-                    <h3>Reefer Container Hub</h3>
-                    <p>Fasilitas plug reefer berkapasitas besar dengan pasokan listrik stabil dan teknisi pendingin siaga 24 jam.</p>
-                    <ul class="feature-bullets">
-                        <li>Pre-Trip Inspection (PTI) tersertifikasi</li>
-                        <li>Pencatatan suhu periodik otomatis</li>
-                        <li>Genset cadangan kapasitas penuh</li>
-                    </ul>
+                <div class="about-card" style="border-top: 3px solid var(--ceva-blue-accent);">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--ceva-blue-accent);">TAHAP 02</span>
+                    <h4 style="margin: 0.5rem 0;">Rigging &amp; Lifting</h4>
+                    <p style="font-size: 0.8125rem;">Kalkulasi titik tumpu (CoG) dan lifting plan dengan crane heavy-duty 200 ton.</p>
                 </div>
-
-                <!-- 3. Maintenance & Cleaning -->
-                <div class="service-card">
-                    <div class="service-icon">🔧</div>
-                    <h3>Maintenance & IICL Repair</h3>
-                    <p>Perbaikan kontainer berstandar IICL oleh teknisi profesional bersertifikat, lengkap dengan fasilitas steam wash bertekanan tinggi.</p>
-                    <ul class="feature-bullets">
-                        <li>Inspeksi struktur menyeluruh</li>
-                        <li>Chemical wash & odor removal</li>
-                        <li>Sertifikasi kelaikan muatan</li>
-                    </ul>
+                <div class="about-card" style="border-top: 3px solid var(--ceva-red);">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--ceva-red);">TAHAP 03</span>
+                    <h4 style="margin: 0.5rem 0;">Bonded Staging</h4>
+                    <p style="font-size: 0.8125rem;">Konsolidasi kargo di lapangan penumpukan resmi depo dekat quayside pelabuhan.</p>
                 </div>
-
-                <!-- 4. Pergudangan & Cross-Dock -->
-                <div class="service-card">
-                    <div class="service-icon">🏢</div>
-                    <h3>Pergudangan & Distribusi</h3>
-                    <p>Gudang modern berkeamanan tinggi untuk penyimpanan barang, stripping/stuffing kontainer, serta distribusi rantai pasok.</p>
-                    <ul class="feature-bullets">
-                        <li>CCTV & fire suppression 24/7</li>
-                        <li>Cross-docking & konsolidasi muatan</li>
-                        <li>Warehouse Management System (WMS)</li>
-                    </ul>
+                <div class="about-card" style="border-top: 3px solid var(--ceva-blue-accent);">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--ceva-blue-accent);">TAHAP 04</span>
+                    <h4 style="margin: 0.5rem 0;">Multi-Axle Haul</h4>
+                    <p style="font-size: 0.8125rem;">Pengangkutan malam hari dengan kawalan polisi (Patwal) menuju lokasi pabrik.</p>
                 </div>
-
-                <!-- 5. Trucking & Logistics -->
-                <div class="service-card">
-                    <div class="service-icon">🚛</div>
-                    <h3>Transportasi & Trucking</h3>
-                    <p>Armada truk trailer siap melayani shuttle kontainer antara pelabuhan, depo, dan lokasi pabrik/gudang Anda.</p>
-                    <ul class="feature-bullets">
-                        <li>Pelacakan armada via GPS Real-time</li>
-                        <li>Driver berpengalaman & berizin resmi</li>
-                        <li>Kombinasi chasis 20ft & 40ft</li>
-                    </ul>
-                </div>
-
-                <!-- 6. Central Data & API Gateway -->
-                <div class="service-card">
-                    <div class="service-icon">⚡</div>
-                    <h3>Integrasi API & Sistem Pusat</h3>
-                    <p>Infrastruktur IT modern terhubung dengan database pusat terenkripsi untuk integrasi sistem logistik B2B secara langsung.</p>
-                    <ul class="feature-bullets">
-                        <li>REST API terisolasi Zero-Trust</li>
-                        <li>Automated SSL & Security Headers</li>
-                        <li>PostgreSQL & Redis Central DB Ready</li>
-                    </ul>
+                <div class="about-card" style="border-top: 3px solid #10B981;">
+                    <span style="font-size: 0.75rem; font-weight: 800; color: #10B981;">TAHAP 05</span>
+                    <h4 style="margin: 0.5rem 0;">Jobsite Handover</h4>
+                    <p style="font-size: 0.8125rem;">Penempatan tepat di atas pondasi pabrik dan penandatanganan berita acara resmi.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Inquiry & Contact Section -->
-    <section id="kontak" class="section" style="background: rgba(15, 23, 42, 0.4);">
+    <!-- 7. About EDP Section (Tentang Kami) -->
+    <section class="section-padding bg-surface" id="about">
+        <div class="container about-grid">
+            <div>
+                <span class="section-tag">TENTANG PT ERA DEPO PRIMA</span>
+                <h2 class="section-title">Solusi Terpadu Depo Petikemas &amp; Logistik Maritim Indonesia</h2>
+                <p class="section-lead" style="margin-bottom: 1.5rem;">
+                    Didirikan pada tahun 2017 di gerbang maritim tersibuk Indonesia, Tanjung Priok, PT Era Depo Prima bertransformasi dari penyedia fasilitas depo peti kemas unggulan menjadi perusahaan logistik multimoda komprehensif.
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+                    Kami menggabungkan akses pelabuhan yang strategis, kepemilikan aset fisik mandiri (reach stacker, armada trailer, dan bengkel internal), serta pemanfaatan teknologi digital terpadu untuk memberikan efisiensi rantai pasok nyata bagi para pelaku industri.
+                </p>
+                <div class="about-highlights">
+                    <div class="about-card">
+                        <h4><i data-lucide="compass"></i> Visi Kami</h4>
+                        <p>Menjadi ekosistem logistik maritim dan depo petikemas terdepan di Asia Tenggara dengan keandalan operasional kelas dunia.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4><i data-lucide="target"></i> Misi Kami</h4>
+                        <p>Memberikan solusi logistik berbiaya transparan, aman, patuh regulasi, dan tepat waktu untuk mendukung daya saing kargo nasional.</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80" alt="Fasilitas PT Era Depo Prima" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.12);">
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Cold Chain Section (Interactive Slider) -->
+    <section class="section-padding bg-darker" id="cold-chain">
         <div class="container">
-            <div class="inquiry-wrapper">
-                <div>
-                    <span class="section-tag">Hubungi Kami</span>
-                    <h2 class="section-title">Minta Penawaran atau Kerjasama Depo</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
-                        Isi formulir berikut untuk berdiskusi dengan tim representatif PT Era Depo Prima mengenai kebutuhan storage, reefer, atau pergudangan Anda.
-                    </p>
-                    
-                    <div style="margin-top: 2rem; color: #cbd5e1; font-size: 0.95rem;">
-                        <p style="margin-bottom: 0.75rem;">🏢 <strong>Kantor Pusat & Depo:</strong><br>Kawasan Industri & Logistik Terpadu</p>
-                        <p style="margin-bottom: 0.75rem;">✉️ <strong>Email Resmi:</strong><br>inquiry@eradepoprima.com / info@eradepoprima.com</p>
-                        <p>🕒 <strong>Jam Kerja Operasional:</strong><br>Gate Depo: 24 Jam Non-Stop | Kantor: 08.00 - 17.00 WIB</p>
+            <div class="text-center">
+                <span class="section-tag center">COLD CHAIN &amp; REEFER HUB</span>
+                <h2 class="section-title">Presisi Kontrol Suhu -40°C Hingga +25°C</h2>
+                <p class="section-lead">
+                    Fasilitas rantai pendingin halal-ready, stasiun plug-in 24/7, dan tim teknisi genset backup untuk produk farmasi, daging, perikanan, serta buah-buahan segar.
+                </p>
+            </div>
+
+            <div class="cold-chain-box">
+                <div class="temp-gauge-wrap">
+                    <div class="temp-indicator">
+                        <div class="temp-val" id="tempValueDisplay">-18°C</div>
+                        <div class="temp-type" id="tempCategoryDisplay">Standard Frozen (Seafood, Beef, Poultry)</div>
+                    </div>
+                    <div class="temp-slider-control">
+                        <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">
+                            Geser Slider untuk Simulasi Suhu Komoditas Anda:
+                        </label>
+                        <input type="range" id="tempSlider" min="-40" max="25" value="-18" step="1">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            <span>-40°C (Deep Freeze)</span>
+                            <span>-18°C (Frozen)</span>
+                            <span>0°C</span>
+                            <span>+4°C (Chilled)</span>
+                            <span>+25°C (Ambient)</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Live Contact Form (Submits to Central PostgreSQL API) -->
-                <div>
-                    <div id="form-alert" class="form-status-alert"></div>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Nama Lengkap / Perusahaan *</label>
-                            <input type="text" id="name" class="form-control" placeholder="PT Contoh Logistik / Bpk. Fulan" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Alamat Email Resmi *</label>
-                            <input type="email" id="email" class="form-control" placeholder="nama@perusahaan.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Kategori Layanan *</label>
-                            <select id="subject" class="form-control">
-                                <option value="Penyimpanan Depo Petikemas">Penyimpanan Depo Petikemas (Empty/Laden)</option>
-                                <option value="Reefer Monitoring & PTI">Reefer Monitoring & PTI</option>
-                                <option value="Perbaikan & Cuci IICL">Perbaikan Kontainer & Cuci IICL</option>
-                                <option value="Sewa Pergudangan & Cross Dock">Sewa Pergudangan & Cross Dock</option>
-                                <option value="Trucking & Shuttle">Trucking & Shuttle Pelabuhan</option>
-                                <option value="Lainnya">Kebutuhan Lainnya</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Pesan / Estimasi Kebutuhan TEUs *</label>
-                            <textarea id="message" class="form-control" placeholder="Tuliskan estimasi volume kontainer, durasi sewa, atau pertanyaan spesifik Anda..." required></textarea>
-                        </div>
-                        <button type="submit" id="btn-submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                            Kirim Pesan ke Database Pusat
-                        </button>
-                    </form>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                    <div class="about-card">
+                        <h4 style="color: #38BDF8;"><i data-lucide="snowflake"></i> 60+ Stasiun Plug-in</h4>
+                        <p>Pemantauan tegangan daya dan suhu peti kemas otomatis setiap 2 jam dengan logbook tercatat.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4 style="color: #38BDF8;"><i data-lucide="zap"></i> Genset Otomatis</h4>
+                        <p>Sistem suplai daya ganda otomatis tanpa jeda pemadaman (zero power interruption) menjaga muatan aman.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4 style="color: #38BDF8;"><i data-lucide="shield"></i> Sertifikasi Halal Hub</h4>
+                        <p>Pemisahan area penyimpanan dan penanganan steril sesuai panduan Sistem Jaminan Produk Halal.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
+    <!-- 9. Nationwide & Global Network -->
+    <section class="section-padding bg-darker" id="network">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3.5rem;">
+                <span class="section-tag center">JARINGAN LOGISTIK</span>
+                <h2 class="section-title">Menghubungkan 600+ Rute Maritim &amp; Jalur Darat Nusantara</h2>
+                <p class="section-lead">
+                    Dari pangkalan utama di Tanjung Priok, kargo Anda dapat terdistribusi ke seluruh pulau di Indonesia serta terhubung langsung ke pelabuhan utama dunia.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+                <div class="about-card">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem; color: #FFFFFF;">
+                        Koridor Distribusi Domestik
+                    </h3>
+                    <ul class="subservice-specs" style="border: none; padding: 0;">
+                        <li><i data-lucide="check"></i> <strong>Jawa &ndash; Bali:</strong> Rute reguler harian Jakarta &ndash; Cikarang &ndash; Semarang &ndash; Surabaya &ndash; Denpasar</li>
+                        <li><i data-lucide="check"></i> <strong>Sumatera:</strong> Koneksi lintas tol Bakauheni &ndash; Palembang &ndash; Medan &ndash; Pekanbaru</li>
+                        <li><i data-lucide="check"></i> <strong>Kalimantan &amp; Sulawesi:</strong> Distribusi tongkang &amp; kapal kontainer ke Balikpapan, Banjarmasin, Makassar &amp; Morowali</li>
+                    </ul>
+                </div>
+                <div class="about-card" style="border-left: 3px solid var(--ceva-red);">
+                    <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem; color: #FFFFFF;">
+                        Rute Maritim Internasional
+                    </h3>
+                    <ul class="subservice-specs" style="border: none; padding: 0;">
+                        <li><i data-lucide="check"></i> <strong>Intra-Asia:</strong> Singapore, Port Klang, Shanghai, Ningbo, Busan, Tokyo</li>
+                        <li><i data-lucide="check"></i> <strong>Eropa &amp; Mediterania:</strong> Rotterdam, Hamburg, Antwerp, Valencia</li>
+                        <li><i data-lucide="check"></i> <strong>Amerika Utara:</strong> Los Angeles, Long Beach, New York, Savannah</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Integrated RFQ Section (Submits to https://edp.bringas.tech/rfq) -->
+    <section class="rfq-section" id="rfq">
+        <div class="container">
+            <div class="rfq-card-container">
+                <div class="text-center" style="margin-bottom: 2.5rem;">
+                    <span class="section-tag center">REQUEST FOR QUOTE (RFQ)</span>
+                    <h2 class="section-title">Dapatkan Proposal Tarif Logistik Cepat</h2>
+                    <p class="section-lead">Pilih kategori layanan dan spesifikasi muatan Anda untuk menerima penawaran resmi langsung dari tim komersial kami.</p>
+                </div>
+
+                <div id="rfqAlert" class="rfq-status-alert"></div>
+
+                <form id="rfqForm">
+                    <!-- Step 1: Service Type Selection -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Pilih Kategori Solusi <span class="req">*</span></label>
+                        <div class="rfq-service-selector">
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Container Depot & Reefer" checked>
+                                <span><i data-lucide="box" style="width: 14px; height: 14px; display: inline;"></i> Container</span>
+                            </label>
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Break Bulk & Heavy Lift">
+                                <span><i data-lucide="anchor" style="width: 14px; height: 14px; display: inline;"></i> Break Bulk</span>
+                            </label>
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Aset & Alat Berat">
+                                <span><i data-lucide="shield" style="width: 14px; height: 14px; display: inline;"></i> Aset &amp; Depo</span>
+                            </label>
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Trucking & Inland Haulage">
+                                <span><i data-lucide="truck" style="width: 14px; height: 14px; display: inline;"></i> Trucking</span>
+                            </label>
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Customs Brokerage / Impor">
+                                <span><i data-lucide="arrow-down-left" style="width: 14px; height: 14px; display: inline;"></i> Impor PPJK</span>
+                            </label>
+                            <label class="service-radio-label">
+                                <input type="radio" name="service_type" value="Ekspor & Ocean Freight">
+                                <span><i data-lucide="arrow-up-right" style="width: 14px; height: 14px; display: inline;"></i> Ekspor PEB</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Route Origin & Destination -->
+                    <div class="rfq-form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Pelabuhan / Kota Asal <span class="req">*</span></label>
+                            <input type="text" name="origin" class="form-control" placeholder="Contoh: Tanjung Priok / Shanghai" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Pelabuhan / Kota Tujuan <span class="req">*</span></label>
+                            <input type="text" name="destination" class="form-control" placeholder="Contoh: Cikarang / Balikpapan / Rotterdam" required>
+                        </div>
+
+                        <!-- Step 3: Cargo Details -->
+                        <div class="form-group">
+                            <label class="form-label">Jenis Komoditas / Barang <span class="req">*</span></label>
+                            <input type="text" name="cargo_type" class="form-control" placeholder="Contoh: Mesin Industri / Peti Kemas / Makanan Beku" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipe Unit &amp; Volume</label>
+                            <input type="text" name="container_size" class="form-control" placeholder="Contoh: 2x 40ft HC, atau 10x 20ft Reefer, atau 50 Ton">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Estimasi Berat Kotor (Ton/Kg)</label>
+                            <input type="text" name="weight" class="form-control" placeholder="Contoh: 24 Ton">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Target Tanggal Pengiriman</label>
+                            <input type="date" name="target_date" class="form-control">
+                        </div>
+
+                        <!-- Step 4: Contact Information -->
+                        <div class="form-group">
+                            <label class="form-label">Nama Perusahaan <span class="req">*</span></label>
+                            <input type="text" name="company_name" class="form-control" placeholder="PT Contoh Industri Nusantara" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nama Kontak Person <span class="req">*</span></label>
+                            <input type="text" name="contact_name" class="form-control" placeholder="Bpk. Hendra Santoso" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Perusahaan <span class="req">*</span></label>
+                            <input type="email" name="email" class="form-control" placeholder="hendra@perusahaan.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nomor WhatsApp / Telp <span class="req">*</span></label>
+                            <input type="tel" name="phone" class="form-control" placeholder="+62 812-xxxx-xxxx" required>
+                        </div>
+
+                        <div class="form-group rfq-col-full">
+                            <label class="form-label">Ruang Lingkup &amp; Catatan Khusus</label>
+                            <textarea id="notes" name="notes" rows="3" class="form-control" placeholder="Tuliskan jika membutuhkan mobile crane di lokasi, penyimpanan reefer suhu tertentu, atau bantuan PPJK impor/ekspor..."></textarea>
+                        </div>
+
+                        <div class="rfq-col-full">
+                            <button type="submit" id="submitRfqBtn" class="btn btn-primary btn-lg" style="width: 100%;">
+                                <i data-lucide="send"></i> Kirim Permintaan Penawaran (RFQ)
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Strategic Locations -->
+    <section class="section-padding bg-surface" id="locations">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <span class="section-tag center">JARINGAN LOKASI OPERASIONAL</span>
+                <h2 class="section-title">Kantor Pusat &amp; Fasilitas Depo Strategis</h2>
+                <p class="section-lead">Aksesibilitas quayside langsung di gerbang pelabuhan tersibuk Indonesia &ndash; Tanjung Priok, Jakarta Utara.</p>
+            </div>
+
+            <div class="locations-grid">
+                <div class="location-card">
+                    <span class="status-badge" style="margin-bottom: 0.75rem;">Corporate Headquarters</span>
+                    <h3>PT Era Depo Prima &ndash; Head Office</h3>
+                    <div class="location-meta">
+                        <div class="location-meta-item">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <strong>Alamat Kantor:</strong>
+                                <p>Jl. Kebon Bawang III No. 10, Tanjung Priok, Jakarta Utara &ndash; DKI Jakarta, Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="location-meta-item">
+                            <i data-lucide="phone"></i>
+                            <div>
+                                <strong>Telepon Operasional:</strong>
+                                <p>+62 21 4390-8888 / +62 21 4390-8889</p>
+                            </div>
+                        </div>
+                        <div class="location-meta-item">
+                            <i data-lucide="briefcase"></i>
+                            <div>
+                                <strong>Fungsi Utama:</strong>
+                                <p>Manajemen Eksekutif, Operasional Freight Forwarding, Custom Desk PPJK &amp; Customer Support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-card featured">
+                    <span class="status-badge" style="background: rgba(2, 132, 199, 0.2); color: #38BDF8; border-color: var(--ceva-blue-accent); margin-bottom: 0.75rem;">Specialized Facility Hub</span>
+                    <h3>Representative Office &amp; Halal Storage Hub</h3>
+                    <div class="location-meta">
+                        <div class="location-meta-item">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <strong>Alamat Depo &amp; Fasilitas:</strong>
+                                <p>Jl. Raya Sulawesi No.1, RT.7/RW.4, Tj. Priok, Kec. Koja, Jakarta Utara, DKI Jakarta 14310</p>
+                            </div>
+                        </div>
+                        <div class="location-meta-item">
+                            <i data-lucide="clock"></i>
+                            <div>
+                                <strong>Jam Layanan Gate:</strong>
+                                <p>24 Jam Non-Stop (Gate In / Gate Out, Reefer Monitoring &amp; Dispatch)</p>
+                            </div>
+                        </div>
+                        <div class="location-meta-item">
+                            <i data-lucide="thermometer-snowflake"></i>
+                            <div>
+                                <strong>Fasilitas Khusus:</strong>
+                                <p>Halal Logistics Hub, Staging Reefer Container, Depo Petikemas &amp; Bengkel Workshop</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Footer (CEVA Navy Style) -->
+    <footer class="footer-corporate">
         <div class="container">
             <div class="footer-grid">
-                <div>
-                    <div class="brand-logo" style="margin-bottom: 1rem;">
-                        <div class="logo-icon">EDP</div>
-                        <div class="brand-text">PT ERA DEPO <span>PRIMA</span></div>
+                <div class="footer-col">
+                    <div class="brand-logo" style="margin-bottom: 1.25rem;">
+                        <div class="logo-graphic">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+                                <polygon points="24,6 42,16 24,26 6,16" fill="#0284C7" />
+                                <polygon points="6,16 24,26 24,32 6,22" fill="#002B5C" />
+                                <polygon points="42,16 24,26 24,32 42,22" fill="#38BDF8" />
+                                <polygon points="24,18 42,28 24,38 6,28" fill="#E30613" />
+                                <polygon points="6,28 24,38 24,44 6,34" fill="#990000" />
+                                <polygon points="42,28 24,38 24,44 42,34" fill="#F87171" />
+                            </svg>
+                        </div>
+                        <span class="brand-name">ERA DEPO <span>PRIMA</span></span>
                     </div>
-                    <p style="max-width: 400px; font-size: 0.85rem;">
-                        Pusat layanan depo petikemas, cold chain reefer hub, perbaikan IICL, dan logistik terintegrasi dengan standar keselamatan dan keamanan maritim internasional.
+                    <p style="font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.5rem;">
+                        Moving Cargo. Delivering Possibilities. Penyedia solusi logistik multimoda, depo petikemas berstandar internasional, angkutan kargo berat, cold chain presisi, dan kepabeanan resmi di Tanjung Priok.
                     </p>
+                    <div style="font-size: 0.8125rem; color: var(--text-muted);">
+                        <span>✓ Est. 2017</span> &bull; <span>✓ Licensed PPJK</span> &bull; <span>✓ HSE Compliant</span>
+                    </div>
                 </div>
-                <div>
-                    <h4 style="color: #fff; margin-bottom: 1rem;">Navigasi Cepat</h4>
-                    <ul style="list-style: none; font-size: 0.85rem; line-height: 2;">
-                        <li><a href="#layanan" style="color: var(--text-muted); text-decoration: none;">Layanan Depo</a></li>
-                        <li><a href="#fasilitas" style="color: var(--text-muted); text-decoration: none;">Fasilitas & Alat Berat</a></li>
-                        <li><a href="#kontak" style="color: var(--text-muted); text-decoration: none;">Permintaan Penawaran</a></li>
+
+                <div class="footer-col">
+                    <h4>6 Klaster Solusi</h4>
+                    <ul class="footer-links">
+                        <li><a href="solutions/container.html">Container Depot &amp; Reefer Hub</a></li>
+                        <li><a href="solutions/break-bulk.html">Break Bulk &amp; Heavy Lift</a></li>
+                        <li><a href="solutions/aset.html">Aset &amp; Fasilitas Alat Berat</a></li>
+                        <li><a href="solutions/trucking.html">Trucking &amp; Inland Haulage</a></li>
+                        <li><a href="solutions/impor.html">Impor &amp; PPJK Customs Clearance</a></li>
+                        <li><a href="solutions/ekspor.html">Ekspor &amp; Global Ocean Forwarding</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 style="color: #fff; margin-bottom: 1rem;">Infrastruktur Sistem</h4>
-                    <p style="font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--brand-emerald);">● Central DB & API Active</p>
-                    <p style="font-size: 0.8rem; color: #64748b;">
-                        Traefik Ingress TLS 1.3 | PostgreSQL 16 Isolated Network | Anti-Spam Mailserver.
+
+                <div class="footer-col">
+                    <h4>Kantor &amp; Operasional</h4>
+                    <p style="font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.8rem;">
+                        <strong>Head Office:</strong><br>
+                        Jl. Kebon Bawang III No. 10, Tanjung Priok, Jakarta Utara &ndash; Indonesia
+                    </p>
+                    <p style="font-size: 0.85rem; line-height: 1.6;">
+                        <strong>Halal Hub &amp; Depo:</strong><br>
+                        Jl. Raya Sulawesi No. 1, Koja, Tanjung Priok, Jakarta Utara
                     </p>
                 </div>
+
+                <div class="footer-col">
+                    <h4>Layanan Komersial</h4>
+                    <ul class="footer-links">
+                        <li><i data-lucide="phone" style="width: 14px; height: 14px; display: inline;"></i> +62 21 4390-8888</li>
+                        <li><i data-lucide="phone" style="width: 14px; height: 14px; display: inline;"></i> +62 21 4390-8889</li>
+                        <li><i data-lucide="mail" style="width: 14px; height: 14px; display: inline;"></i> commercial@eradepoprima.co.id</li>
+                        <li><i data-lucide="clock" style="width: 14px; height: 14px; display: inline;"></i> Gate Depo: 24 Jam Non-Stop</li>
+                    </ul>
+                    <div style="margin-top: 1.25rem;">
+                        <a href="#rfq" class="btn btn-primary btn-sm" style="width: 100%;">
+                            <i data-lucide="calculator"></i> Request Freight Quote
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; text-align: center; font-size: 0.8rem;">
-                &copy; 2026 PT Era Depo Prima. Seluruh Hak Cipta Dilindungi Undang-Undang.
+
+            <div class="footer-bottom">
+                <div>
+                    &copy; 2026 PT Era Depo Prima. All rights reserved. Registered in the Republic of Indonesia.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>&bull;</span>
+                    <a href="#">Terms of Carriage</a>
+                    <span>&bull;</span>
+                    <a href="#">HSE Policy</a>
+                    <span>&bull;</span>
+                    <a href="#">Anti-Bribery Statement</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Form Submission Script via API Central Gateway -->
-    <script>
-        const form = document.getElementById('contact-form');
-        const alertBox = document.getElementById('form-alert');
-        const submitBtn = document.getElementById('btn-submit');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Menyimpan ke Database Pusat...';
-            alertBox.style.display = 'none';
-
-            try {
-                // Submit to Central API Gateway (api-service via Traefik routing /api/v1/contact)
-                const response = await fetch('/api/v1/contact', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, subject, message })
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.status === 'success') {
-                    alertBox.className = 'form-status-alert alert-success';
-                    alertBox.innerText = '✓ Terima kasih! Pesan Anda telah tersimpan di Database Pusat PT Era Depo Prima. Tim kami akan segera menghubungi Anda.';
-                    alertBox.style.display = 'block';
-                    form.reset();
-                } else {
-                    throw new Error(result.message || 'Gagal mengirim pesan');
-                }
-            } catch (err) {
-                // Fallback graceful notice jika diakses langsung tanpa API gateway
-                alertBox.className = 'form-status-alert alert-success';
-                alertBox.innerText = '✓ Data berhasil diproses. (ID Pengiriman: EDP-' + Math.floor(Math.random() * 90000 + 10000) + ')';
-                alertBox.style.display = 'block';
-                form.reset();
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Kirim Pesan ke Database Pusat';
-            }
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
