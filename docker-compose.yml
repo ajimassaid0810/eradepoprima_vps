@@ -267,6 +267,7 @@ services:
       - ROUNDCUBEMAIL_SMTP_SERVER=tls://mailserver
       - ROUNDCUBEMAIL_SMTP_PORT=587
       - ROUNDCUBEMAIL_UPLOAD_MAX_FILESIZE=25M
+      - ROUNDCUBEMAIL_PLUGINS=archive,zipdownload,password
     volumes:
       - ./mail/webmail-db:/var/www/html/db
       - ./mail/roundcube-custom.php:/var/roundcube/config/custom.inc.php:ro
@@ -290,6 +291,30 @@ services:
       - "traefik.http.routers.webmail-https.tls.certresolver=letsencrypt"
       - "traefik.http.routers.webmail-https.service=webmail-svc"
       - "traefik.http.services.webmail-svc.loadbalancer.server.port=80"
+
+  # ============================================================================
+  # 9. SECURE INTERNAL PASSWORD MEDIATOR (ZERO-TRUST FOR ROUNDCUBE)
+  # ============================================================================
+  mail_passwd_helper:
+    build:
+      context: ./mail/passwd-helper
+      dockerfile: Dockerfile
+    container_name: mail-passwd-helper
+    restart: unless-stopped
+    environment:
+      - PORT=8000
+      - IMAP_HOST=mailserver
+      - IMAP_PORT=993
+      - DOMAIN_NAME=${DOMAIN_NAME:-eradepoprima.com}
+      - ACCOUNTS_FILE=/etc/mail-config/postfix-accounts.cf
+    volumes:
+      - ./mail/config:/etc/mail-config:rw
+    networks:
+      - mail_net
+    deploy:
+      resources:
+        limits:
+          memory: 128M
 
 volumes:
   postgres_data:

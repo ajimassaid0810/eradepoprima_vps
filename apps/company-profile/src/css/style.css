@@ -50,7 +50,9 @@
 }
 
 /* Base Reset & Global Typography */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -84,7 +86,10 @@ a {
     transition: var(--transition);
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
     font-family: inherit;
     font-size: inherit;
 }
@@ -122,7 +127,8 @@ button, input, select, textarea {
     gap: 0.75rem;
 }
 
-.topbar-left, .topbar-right {
+.topbar-left,
+.topbar-right {
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -162,8 +168,17 @@ button, input, select, textarea {
 }
 
 @keyframes pulseDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
 }
 
 /* ==========================================================================
@@ -567,7 +582,8 @@ button, input, select, textarea {
     z-index: 1;
 }
 
-.hero-bg-video, .hero-bg-img {
+.hero-bg-video,
+.hero-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -640,6 +656,7 @@ button, input, select, textarea {
         opacity: 0;
         transform: translateY(24px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -1700,7 +1717,7 @@ select.form-control option {
     border-color: rgba(255, 255, 255, 0.25);
 }
 
-.service-radio-label input[type="radio"]:checked + span {
+.service-radio-label input[type="radio"]:checked+span {
     color: #FFFFFF;
     font-weight: 700;
 }
@@ -1861,26 +1878,33 @@ select.form-control option {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
+
     .solutions-grid-6 {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .subservices-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .trust-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .detail-metrics-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 2.5rem;
     }
+
     .why-split-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
+
     .other-solutions-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1890,6 +1914,7 @@ select.form-control option {
     .topbar {
         display: none;
     }
+
     .nav-menu {
         position: fixed;
         top: 76px;
@@ -1904,12 +1929,15 @@ select.form-control option {
         display: none;
         overflow-y: auto;
     }
+
     .nav-menu.open {
         display: flex;
     }
+
     .mobile-toggle {
         display: block;
     }
+
     .nav-dropdown {
         position: static;
         width: 100%;
@@ -1921,43 +1949,729 @@ select.form-control option {
         margin-top: 0.5rem;
         display: none;
     }
+
     .nav-item.dropdown-open .nav-dropdown {
         display: block;
     }
+
     .hero-title {
         font-size: 2.25rem;
     }
+
     .section-title {
         font-size: 1.85rem;
     }
+
     .solutions-grid-6 {
         grid-template-columns: 1fr;
     }
+
     .subservices-grid {
         grid-template-columns: 1fr;
     }
+
     .rfq-card-container {
         padding: 1.5rem;
     }
+
     .rfq-form-grid {
         grid-template-columns: 1fr;
     }
+
     .rfq-col-full {
         grid-column: span 1;
     }
+
     .rfq-service-selector {
         grid-template-columns: 1fr;
     }
+
     .locations-grid {
         grid-template-columns: 1fr;
     }
+
     .trust-grid {
         grid-template-columns: 1fr;
     }
+
     .footer-grid {
         grid-template-columns: 1fr;
     }
+
     .other-solutions-grid {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+/* ==========================================================================
+   EDP MASTER POLISHED CORPORATE THEME (LIGHT BODY + DEEP NAVY NAVBAR)
+   ========================================================================== */
+:root {
+    /* Brand Palette - Deep Maritime Navy & Electric Blue (No Red / No Orange) */
+    --ceva-navy-dark: #00142D;
+    --ceva-navy: #001B3D;
+    --ceva-blue: #002B5C;
+    --ceva-blue-light: #00458A;
+    --ceva-blue-accent: #0284C7;
+    --ceva-cyan: #38BDF8;
+
+    /* Red replacement: Modern Electric Blue */
+    --ceva-red: #0284C7;
+    --ceva-red-hover: #00458A;
+    --ceva-red-glow: rgba(2, 132, 199, 0.35);
+
+    /* Backgrounds */
+    --bg-dark: #FFFFFF;
+    --bg-surface: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F1F5F9;
+    --bg-light-section: #F8FAFC;
+    --bg-white: #FFFFFF;
+
+    /* Typography */
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dark: #0F172A;
+    --text-dark-muted: #64748B;
+
+    /* Borders & Shadows */
+    --border-subtle: #E2E8F0;
+    --border-hover: rgba(2, 132, 199, 0.4);
+    --shadow-sm: 0 2px 8px rgba(0, 27, 61, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 27, 61, 0.08);
+    --shadow-lg: 0 16px 36px rgba(0, 27, 61, 0.12);
+}
+
+body {
+    background-color: #FFFFFF !important;
+    color: var(--text-primary) !important;
+}
+
+/* --------------------------------------------------------------------------
+   1. TOPBAR & NAVBAR (DEEP MARITIME NAVY - KOKOH & MEWAH)
+   -------------------------------------------------------------------------- */
+.topbar {
+    background: #00142D !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #CBD5E1 !important;
+}
+
+.topbar-item svg {
+    color: #38BDF8 !important;
+}
+
+.status-badge {
+    background: rgba(16, 185, 129, 0.15) !important;
+    color: #10B981 !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.navbar {
+    background: #001B3D !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.navbar.scrolled {
+    background: rgba(0, 27, 61, 0.98) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    box-shadow: 0 4px 20px rgba(0, 15, 35, 0.35) !important;
+}
+
+.brand-name {
+    color: #FFFFFF !important;
+}
+
+.brand-name span {
+    color: #38BDF8 !important;
+}
+
+.brand-tagline {
+    color: #94A3B8 !important;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #38BDF8 !important;
+}
+
+.btn-rfq-nav {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+.btn-rfq-nav:hover {
+    background: #0369A1 !important;
+}
+
+/* Nav Dropdown */
+.nav-dropdown {
+    background: #001B3D !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 12px 32px rgba(0, 15, 35, 0.5) !important;
+}
+
+.dropdown-header {
+    background: #00142D !important;
+    color: #38BDF8 !important;
+}
+
+.dropdown-link {
+    color: #FFFFFF !important;
+}
+
+.dropdown-link:hover {
+    background: rgba(2, 132, 199, 0.15) !important;
+}
+
+.dropdown-text span {
+    color: #94A3B8 !important;
+}
+
+.dropdown-icon {
+    background: rgba(2, 132, 199, 0.2) !important;
+    color: #38BDF8 !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. HERO SECTION (HILANGKAN VIGNET BIRU, FOTO/VIDEO JELAS, TULISAN PROPORSIONAL)
+   -------------------------------------------------------------------------- */
+.hero-ceva {
+    color: #FFFFFF !important;
+    position: relative !important;
+}
+
+/* Hilangkan vignet biru tebal dan grid pattern dot */
+.hero-grid-pattern {
+    display: none !important;
+}
+
+.hero-ceva::after {
+    display: none !important;
+    /* Hilangkan kabut vignet di bagian bawah */
+}
+
+/* Ganti vignet biru tebal dengan filter netral tipis agar video/foto tetap alami */
+.hero-slide-overlay {
+    background: linear-gradient(to right, rgba(0, 10, 25, 0.45) 0%, rgba(0, 10, 25, 0.15) 50%, transparent 100%) !important;
+}
+
+/* Ukuran Judul & Teks Lebih Proporsional (Tidak Terlalu Besar) */
+.hero-content-slider {
+    min-height: 320px !important;
+}
+
+.hero-title {
+    font-size: 2.15rem !important;
+    font-weight: 800 !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 0.85rem !important;
+    max-width: 580px !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75) !important;
+}
+
+.hero-title .accent-red {
+    color: #38BDF8 !important;
+    text-shadow: 0 0 25px rgba(56, 189, 248, 0.6) !important;
+}
+
+.hero-description {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
+    max-width: 500px !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75) !important;
+}
+
+.hero-badge {
+    background: rgba(2, 132, 199, 0.25) !important;
+    color: #38BDF8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.75rem !important;
+    margin-bottom: 0.85rem !important;
+}
+
+.hero-actions {
+    margin-bottom: 1.5rem !important;
+    gap: 0.85rem !important;
+}
+
+.hero-actions .btn {
+    padding: 0.65rem 1.35rem !important;
+    font-size: 0.875rem !important;
+}
+
+.hero-actions .btn-primary {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
+}
+
+.hero-actions .btn-primary:hover {
+    background: #0369A1 !important;
+}
+
+.hero-actions .btn-outline {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+    color: #FFFFFF !important;
+    backdrop-filter: blur(8px);
+}
+
+.hero-actions .btn-outline:hover {
+    background: #FFFFFF !important;
+    color: #001B3D !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Floating Metrics on Hero */
+.hero-metrics-floating {
+    background: rgba(0, 20, 45, 0.82) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 16px 40px rgba(0, 10, 25, 0.4) !important;
+}
+
+.floating-metrics-header h3 {
+    color: #FFFFFF !important;
+}
+
+.floating-metrics-header h3 i,
+.floating-metrics-header h3 svg {
+    color: #38BDF8 !important;
+}
+
+.metric-number {
+    color: #FFFFFF !important;
+}
+
+.metric-label {
+    color: #94A3B8 !important;
+}
+
+.metric-item.red-border {
+    border-left: 3px solid #0284C7 !important;
+}
+
+/* Quick Action Box on Hero */
+.quick-action-box {
+    background: rgba(0, 20, 45, 0.82) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.quick-action-text strong {
+    color: #FFFFFF !important;
+}
+
+.quick-action-text span {
+    color: #CBD5E1 !important;
+}
+
+.quick-action-box .btn {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+}
+
+.quick-action-box .btn:hover {
+    background: #38BDF8 !important;
+    color: #001B3D !important;
+}
+
+/* --------------------------------------------------------------------------
+   TOMBOL PREV & NEXT DI TENGAH (LEFT & RIGHT VERTICALLY CENTERED)
+   -------------------------------------------------------------------------- */
+.hero-nav-buttons {
+    display: contents !important;
+}
+
+#heroPrevBtn,
+#heroNextBtn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: rgba(0, 20, 45, 0.65) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+    color: #FFFFFF !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+#heroPrevBtn {
+    left: 1.5rem !important;
+}
+
+#heroNextBtn {
+    right: 1.5rem !important;
+}
+
+#heroPrevBtn:hover,
+#heroNextBtn:hover {
+    background: #0284C7 !important;
+    border-color: #0284C7 !important;
+    color: #FFFFFF !important;
+    transform: translateY(-50%) scale(1.1) !important;
+    box-shadow: 0 0 20px rgba(2, 132, 199, 0.6) !important;
+}
+
+@media (max-width: 768px) {
+    #heroPrevBtn {
+        left: 0.5rem !important;
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    #heroNextBtn {
+        right: 0.5rem !important;
+        width: 38px !important;
+        height: 38px !important;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   3. OUR SOLUTIONS SECTION (BACKGROUND PUTIH BERSIH + KARTU MODERN PUTIH)
+   -------------------------------------------------------------------------- */
+.solutions-section {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+    padding: 5.5rem 0 !important;
+}
+
+.section-tag {
+    background: rgba(2, 132, 199, 0.08) !important;
+    color: #002B5C !important;
+    border: 1px solid rgba(2, 132, 199, 0.25) !important;
+    font-weight: 700 !important;
+}
+
+.section-title {
+    color: #001B3D !important;
+}
+
+.section-lead {
+    color: #475569 !important;
+}
+
+/* Cluster Cards: Clean White Cards with High-End Border & Shadow */
+.cluster-card {
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 18px rgba(0, 27, 61, 0.06) !important;
+    overflow: hidden !important;
+}
+
+.cluster-card:hover {
+    transform: translateY(-8px) !important;
+    border-color: #0284C7 !important;
+    box-shadow: 0 16px 36px rgba(2, 132, 199, 0.14) !important;
+}
+
+.cluster-tag-badge {
+    background: #002B5C !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+.cluster-card-title {
+    color: #001B3D !important;
+}
+
+.cluster-card-title::after {
+    background: #0284C7 !important;
+}
+
+.cluster-card-desc {
+    color: #475569 !important;
+}
+
+.cluster-children-preview {
+    border-top: 1px solid #F1F5F9 !important;
+}
+
+.cluster-children-label {
+    color: #64748B !important;
+}
+
+.child-tag {
+    background: #F1F5F9 !important;
+    color: #002B5C !important;
+    border: 1px solid #E2E8F0 !important;
+    font-weight: 600 !important;
+}
+
+.btn-explore-cluster {
+    background: #002B5C !important;
+    border: none !important;
+    color: #FFFFFF !important;
+}
+
+.cluster-card:hover .btn-explore-cluster {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. ALL OTHER SECTIONS (ABOUT, SPOTLIGHT, COLD CHAIN, NETWORK, RFQ, LOCATIONS)
+   -------------------------------------------------------------------------- */
+.trust-bar {
+    background: #F8FAFC !important;
+    border-top: 1px solid #E2E8F0 !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+}
+
+.trust-item-value {
+    color: #001B3D !important;
+}
+
+.trust-item-label {
+    color: #64748B !important;
+}
+
+#spotlight,
+#about,
+#cold-chain,
+#network,
+#locations,
+#rfq,
+.section-padding {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+}
+
+#about,
+#locations {
+    background-color: #F8FAFC !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #001B3D !important;
+}
+
+p,
+li {
+    color: #475569 !important;
+}
+
+/* Cards across the site */
+.spotlight-card,
+.spec-card,
+.stat-card,
+.location-card,
+.contact-card {
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 4px 16px rgba(0, 27, 61, 0.05) !important;
+}
+
+.spotlight-card:hover,
+.location-card:hover {
+    border-color: #0284C7 !important;
+    box-shadow: 0 12px 28px rgba(2, 132, 199, 0.12) !important;
+}
+
+/* RFQ Form */
+.rfq-wrap {
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    box-shadow: 0 12px 32px rgba(0, 27, 61, 0.08) !important;
+}
+
+.form-control,
+input,
+select,
+textarea {
+    background: #F8FAFC !important;
+    border: 1.5px solid #CBD5E1 !important;
+    color: #0F172A !important;
+}
+
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    background: #FFFFFF !important;
+    border-color: #0284C7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+}
+
+.form-label {
+    color: #001B3D !important;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-submit,
+.btn-ceva-primary {
+    background: #002B5C !important;
+    color: #FFFFFF !important;
+    border: none !important;
+}
+
+.btn-primary:hover,
+.btn-submit:hover,
+.btn-ceva-primary:hover {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+}
+
+.btn-secondary,
+.btn-outline {
+    background: transparent !important;
+    border: 1.5px solid #002B5C !important;
+    color: #002B5C !important;
+}
+
+.btn-secondary:hover,
+.btn-outline:hover {
+    background: #002B5C !important;
+    color: #FFFFFF !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. FOOTER CORPORATE (ULTRA-HIGH CONTRAST & CLEAR READABILITY)
+   -------------------------------------------------------------------------- */
+.footer-corporate,
+.footer {
+    background: #001124 !important;
+    border-top: 3px solid #0284C7 !important;
+    padding: 5rem 0 2rem !important;
+    color: #E2E8F0 !important;
+}
+
+/* Judul Kolom Footer: Putih Bersih Tebal dengan Aksen Cyan */
+.footer-corporate h4,
+.footer-col h4 {
+    color: #FFFFFF !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 1.25rem !important;
+    position: relative !important;
+    padding-bottom: 0.5rem !important;
+}
+
+.footer-col h4::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 28px !important;
+    height: 3px !important;
+    background: #38BDF8 !important;
+}
+
+/* Paragraf & Teks Alamat: Terang, Kontras Tinggi & Nyaman Dibaca */
+.footer-corporate p,
+.footer-col p {
+    color: #CBD5E1 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.7 !important;
+}
+
+.footer-col strong {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* Daftar Link Footer */
+.footer-corporate ul,
+.footer-links {
+    list-style: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+}
+
+.footer-links li {
+    color: #CBD5E1 !important;
+    font-size: 0.875rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+}
+
+.footer-links li svg,
+.footer-links li i {
+    color: #38BDF8 !important;
+    width: 15px !important;
+    height: 15px !important;
+    flex-shrink: 0 !important;
+}
+
+.footer-links a {
+    color: #E2E8F0 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease !important;
+    display: inline-block !important;
+}
+
+.footer-links a:hover {
+    color: #38BDF8 !important;
+    transform: translateX(4px) !important;
+}
+
+.footer-col span {
+    color: #94A3B8 !important;
+}
+
+/* Garis Batas Bawah & Hak Cipta */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding-top: 2rem !important;
+    margin-top: 2rem !important;
+    color: #94A3B8 !important;
+    font-size: 0.8125rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+}
+
+.footer-legal-links {
+    display: flex !important;
+    gap: 1.25rem !important;
+}
+
+.footer-legal-links a {
+    color: #CBD5E1 !important;
+}
+
+.footer-legal-links a:hover {
+    color: #38BDF8 !important;
+}
+
+.footer-legal-links span {
+    color: #64748B !important;
 }

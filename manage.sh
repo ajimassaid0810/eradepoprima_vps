@@ -58,8 +58,8 @@ cmd_start() {
             docker compose -f apps/docker-compose.yml --env-file .env up -d --build
             ;;
         mail)
-            echo "[INFO] Menjalankan Mail Server (docker-mailserver)..."
-            docker compose -f mail/docker-compose.yml --env-file .env up -d
+            echo "[INFO] Menjalankan Mail Suite (Mailserver, Webmail, & Password Helper)..."
+            docker compose -f mail/docker-compose.yml --env-file .env up -d --build
             ;;
         all)
             cmd_start proxy
