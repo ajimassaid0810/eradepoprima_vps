@@ -19,6 +19,8 @@ services:
       - ENABLE_RSPAMD=${ENABLE_RSPAMD:-1}
       - ENABLE_CLAMAV=${ENABLE_CLAMAV:-0} # Set 1 di .env jika RAM >= 4GB
       - ENABLE_FAIL2BAN=${ENABLE_FAIL2BAN:-1}
+      # Whitelist internal Docker networks agar Webmail (Roundcube) tidak terblokir saat user salah password
+      - FAIL2BAN_IGNOREIP=127.0.0.1/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
       - ENABLE_OPENDKIM=0
       - ENABLE_POSTGREY=0
       - POSTMASTER_ADDRESS=${POSTMASTER_ADDRESS:-postmaster@example.com}

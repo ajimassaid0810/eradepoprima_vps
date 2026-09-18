@@ -58,6 +58,7 @@ fi
 chmod 600 .env || true
 chmod 600 proxy/acme/acme.json || true
 chmod 700 mail/config mail/mail-data mail/mail-state mail/mail-logs || true
+chown -R 33:33 mail/webmail-db 2>/dev/null || chmod -R 777 mail/webmail-db || true
 
 # 5. Buat shared external network Docker 'proxy_net'
 if ! docker network inspect proxy_net &> /dev/null; then

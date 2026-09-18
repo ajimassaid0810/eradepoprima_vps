@@ -14,6 +14,14 @@ $config['smtp_conn_options'] = array(
         'allow_self_signed' => true,
     ),
 );
+// ==============================================================================
+// REVERSE PROXY & HTTPS CONFIGURATION (TRAEFIK)
+// ==============================================================================
+// Mengatasi error "Invalid request! No data was saved" akibat CSRF/session mismatch
+// saat Roundcube berada di balik reverse proxy HTTPS
+$config['use_https'] = true;
+$config['proxy_whitelist'] = array('127.0.0.1', '10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16');
+$config['ip_check'] = false;
 
 // ==============================================================================
 // ROUNDCUBE PASSWORD PLUGIN CONFIGURATION (SELF-SERVICE PASSWORD CHANGE)
